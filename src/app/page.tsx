@@ -11,203 +11,217 @@ const TRACK_RECORD = [
   "Amazon",
 ];
 
-const CAPABILITIES = [
-  "Agentic Development",
-  "Machine Learning",
-  "DevOps",
-  "Security",
-  "Systems Architecture",
-];
-
 export default function Home() {
   return (
-    <div className="min-h-screen bg-black">
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center">
-        {/* Background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-zinc-900 via-black to-black" />
+    <div className="min-h-screen bg-black text-white">
+      {/* Hero - Full bleed magazine cover style */}
+      <section className="relative min-h-screen flex items-end">
+        {/* Full-bleed background image */}
+        <div className="absolute inset-0">
+          <Image
+            src="/images/mikeoneal-portrait-studio-34body.png"
+            alt="Mike ONeal"
+            fill
+            className="object-cover object-top"
+            priority
+          />
+          {/* Dramatic gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-transparent" />
+        </div>
         
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8 py-20">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            {/* Text content */}
-            <div className="order-2 lg:order-1">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-4">
-                Mike ONeal
-              </h1>
-              <p className="text-xl md:text-2xl text-zinc-400 font-medium mb-6">
-                AI Augmented Software Engineer
-              </p>
-              <p className="text-2xl md:text-3xl text-zinc-200 font-medium mb-8 leading-relaxed">
-                I don&apos;t hold titles or put time in.
-                <br />
-                <span className="text-white">I get shit done.</span>
-              </p>
-              <p className="text-lg text-zinc-400 mb-10 max-w-xl">
-                Design, plan, engineer, test, deploy, audit — Systems, Mobile, Web, Desktop, Cloud. 
-                What used to take months now takes days.
-              </p>
-              
-              {/* CTAs */}
-              <div className="flex flex-col sm:flex-row gap-4 mb-16">
-                <a
-                  href="#contact"
-                  className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-black bg-white rounded-full hover:bg-zinc-200 transition-colors"
-                >
-                  Let&apos;s Talk
-                </a>
-                <a
-                  href="#work"
-                  className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border border-zinc-700 rounded-full hover:bg-zinc-900 transition-colors"
-                >
-                  See What I&apos;ve Built
-                </a>
-              </div>
-
-              {/* Track record */}
-              <div>
-                <p className="text-sm text-zinc-500 uppercase tracking-wider mb-4">
-                  Track Record
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  {TRACK_RECORD.map((company) => (
-                    <span
-                      key={company}
-                      className="px-4 py-2 text-sm font-medium text-zinc-300 bg-zinc-900 rounded-full border border-zinc-800"
-                    >
-                      {company}
-                    </span>
-                  ))}
-                </div>
-              </div>
+        {/* Content */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 pb-16 md:pb-24">
+          <div className="max-w-2xl">
+            <p className="text-sm md:text-base uppercase tracking-[0.3em] text-zinc-400 mb-4 font-medium">
+              AI Augmented Software Engineer
+            </p>
+            <h1 className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter text-white mb-6 leading-[0.85]">
+              MIKE<br />ONEAL
+            </h1>
+            <p className="text-xl md:text-2xl lg:text-3xl text-zinc-200 font-light mb-8 leading-relaxed max-w-xl">
+              I don&apos;t hold titles or put time in.
+              <span className="text-white font-medium"> I get shit done.</span>
+            </p>
+            
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <a
+                href="#contact"
+                className="inline-flex items-center justify-center px-8 py-4 text-base font-bold uppercase tracking-wider text-black bg-white hover:bg-zinc-200 transition-all"
+              >
+                Let&apos;s Talk
+              </a>
+              <a
+                href="#work"
+                className="inline-flex items-center justify-center px-8 py-4 text-base font-bold uppercase tracking-wider text-white border-2 border-white hover:bg-white hover:text-black transition-all"
+              >
+                View Work
+              </a>
             </div>
+          </div>
+        </div>
 
-            {/* Portrait */}
-            <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
-              <div className="relative w-80 h-80 md:w-96 md:h-96 lg:w-[500px] lg:h-[500px]">
-                <Image
-                  src="/images/mikeoneal-portrait-office.png"
-                  alt="Mike ONeal"
-                  fill
-                  className="object-cover rounded-2xl"
-                  priority
-                />
-                {/* Subtle glow effect */}
-                <div className="absolute -inset-4 bg-gradient-to-r from-zinc-800/20 to-zinc-700/20 rounded-3xl blur-2xl -z-10" />
-              </div>
-            </div>
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 right-8 z-10 hidden md:flex flex-col items-center gap-2">
+          <span className="text-xs uppercase tracking-widest text-zinc-500 [writing-mode:vertical-lr]">Scroll</span>
+          <div className="w-px h-16 bg-gradient-to-b from-zinc-500 to-transparent" />
+        </div>
+      </section>
+
+      {/* Track Record - Magazine pull quote style */}
+      <section className="py-16 md:py-24 border-t border-zinc-900">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+            {TRACK_RECORD.map((company, i) => (
+              <span key={company} className="flex items-center gap-8">
+                <span className="text-lg md:text-xl font-light text-zinc-400 hover:text-white transition-colors">
+                  {company}
+                </span>
+                {i < TRACK_RECORD.length - 1 && (
+                  <span className="hidden md:block text-zinc-700">•</span>
+                )}
+              </span>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* About Preview Section */}
-      <section id="about" className="py-24 border-t border-zinc-900">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-start">
+      {/* About - Editorial split layout */}
+      <section id="about" className="py-24 md:py-32">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+            {/* Image */}
+            <div className="relative aspect-[4/5] lg:aspect-[3/4]">
+              <Image
+                src="/images/mikeoneal-portrait-rooftop.png"
+                alt="Mike ONeal"
+                fill
+                className="object-cover"
+              />
+            </div>
+            
+            {/* Content */}
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-                The 100x Developer
+              <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4">The Story</p>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white mb-8 leading-[0.95]">
+                THE 100x<br />DEVELOPER
               </h2>
-              <p className="text-lg text-zinc-400 mb-6 leading-relaxed">
-                I work too fast for normal teams. C-levels love it. Everyone else gets confused.
-                I don&apos;t fit into sprints because by the time you&apos;ve had your standup, 
-                I&apos;ve shipped the feature.
-              </p>
-              <p className="text-lg text-zinc-400 mb-8 leading-relaxed">
-                Three decades of experience from BBS systems to autonomous AI agents. 
-                C → Lisp → TypeScript. Assembly to cloud infrastructure. 
-                Patents, LLCs, board seats. The full stack of a career.
-              </p>
+              <div className="space-y-6 text-lg text-zinc-400 leading-relaxed">
+                <p>
+                  I work too fast for normal teams. C-levels love it. Everyone else gets confused.
+                  I don&apos;t fit into sprints because by the time you&apos;ve had your standup, 
+                  I&apos;ve shipped the feature.
+                </p>
+                <p>
+                  Three decades of experience from BBS systems to autonomous AI agents. 
+                  C → Lisp → TypeScript. Assembly to cloud infrastructure. 
+                  Patents, LLCs, board seats.
+                </p>
+              </div>
               <a
                 href="/about"
-                className="inline-flex items-center text-white font-medium hover:text-zinc-300 transition-colors"
+                className="inline-flex items-center mt-8 text-white font-bold uppercase tracking-wider hover:text-zinc-400 transition-colors group"
               >
-                Read more about my background
-                <svg className="ml-2 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                Read Full Story
+                <svg className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
               </a>
             </div>
-            
-            <div>
-              <p className="text-sm text-zinc-500 uppercase tracking-wider mb-4">
-                Capabilities
-              </p>
-              <div className="space-y-4">
-                {CAPABILITIES.map((capability) => (
-                  <div
-                    key={capability}
-                    className="flex items-center gap-4 p-4 bg-zinc-900/50 rounded-lg border border-zinc-800"
-                  >
-                    <div className="w-2 h-2 bg-white rounded-full" />
-                    <span className="text-lg text-zinc-200">{capability}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* Featured Work Section */}
-      <section id="work" className="py-24 border-t border-zinc-900">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Featured Work
-          </h2>
-          <p className="text-lg text-zinc-400 mb-12 max-w-2xl">
-            Current project: building autonomous systems that handle what used to require entire teams.
-          </p>
+      {/* Capabilities - Bold typography */}
+      <section className="py-24 md:py-32 bg-zinc-950">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-8">Capabilities</p>
+          <div className="space-y-4">
+            {[
+              "Agentic Development",
+              "Machine Learning",
+              "Systems Architecture",
+              "DevOps & Security",
+              "Full Stack Engineering",
+            ].map((capability) => (
+              <div
+                key={capability}
+                className="group flex items-center justify-between py-6 border-b border-zinc-800 hover:border-zinc-600 transition-colors cursor-default"
+              >
+                <span className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-zinc-600 group-hover:text-white transition-colors">
+                  {capability}
+                </span>
+                <svg className="w-8 h-8 text-zinc-700 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-          {/* ClaimHawk Card */}
-          <div className="bg-zinc-900/50 rounded-2xl border border-zinc-800 p-8 md:p-12">
-            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 mb-8">
-              <div>
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">
-                  ClaimHawk
-                </h3>
-                <p className="text-lg text-zinc-400">
-                  Autonomous Dental Revenue Cycle Management
-                </p>
+      {/* Featured Work - Magazine feature spread */}
+      <section id="work" className="py-24 md:py-32">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-0">
+            {/* Image side */}
+            <div className="relative aspect-square lg:aspect-auto lg:min-h-[600px]">
+              <Image
+                src="/images/mikeoneal-portrait-office-v2.png"
+                alt="ClaimHawk"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/50 lg:hidden" />
+            </div>
+            
+            {/* Content side */}
+            <div className="lg:bg-zinc-950 lg:p-12 xl:p-16 flex flex-col justify-center">
+              <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4">Featured Project</p>
+              <h2 className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter text-white mb-4 leading-[0.9]">
+                CLAIM<br />HAWK
+              </h2>
+              <p className="text-xl text-zinc-400 mb-6">
+                Autonomous Dental Revenue Cycle Management
+              </p>
+              <p className="text-zinc-500 mb-8 leading-relaxed max-w-lg">
+                End-to-end automation of dental insurance claims. Computer vision for EOB parsing, 
+                intelligent routing, automated follow-ups. What takes a billing department days 
+                now happens in minutes.
+              </p>
+              <div className="flex flex-wrap gap-3 mb-8">
+                {["Qwen3-VL", "LoRA", "Python", "Modal", "Next.js", "Computer Vision"].map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-4 py-2 text-sm font-medium text-zinc-400 border border-zinc-800 hover:border-zinc-600 transition-colors"
+                  >
+                    {tech}
+                  </span>
+                ))}
               </div>
               <a
                 href="/projects/claimhawk"
-                className="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-white border border-zinc-700 rounded-full hover:bg-zinc-800 transition-colors whitespace-nowrap"
+                className="inline-flex items-center justify-center w-fit px-8 py-4 text-base font-bold uppercase tracking-wider text-black bg-white hover:bg-zinc-200 transition-all"
               >
                 View Project
               </a>
             </div>
-            
-            <p className="text-zinc-300 mb-8 leading-relaxed max-w-3xl">
-              End-to-end automation of dental insurance claims processing. Computer vision for EOB parsing, 
-              intelligent claim routing, automated follow-ups. What takes a billing department days 
-              now happens in minutes.
-            </p>
-
-            <div className="flex flex-wrap gap-2">
-              {["Qwen3-VL", "LoRA", "Python", "Modal", "Next.js", "PostgreSQL", "Computer Vision"].map((tech) => (
-                <span
-                  key={tech}
-                  className="px-3 py-1 text-sm text-zinc-400 bg-zinc-800 rounded-full"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
           </div>
         </div>
       </section>
 
-      {/* The Stack Section */}
-      <section className="py-24 border-t border-zinc-900">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            The Operation
-          </h2>
-          <p className="text-lg text-zinc-400 mb-12 max-w-2xl">
-            Not a tech stack — an operation. A fleet of machines and AI agents working in concert.
-          </p>
+      {/* The Operation - Magazine grid */}
+      <section className="py-24 md:py-32 bg-zinc-950">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          <div className="mb-16">
+            <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4">The Stack</p>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[0.95]">
+              THE OPERATION
+            </h2>
+          </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-zinc-800">
             {[
               {
                 title: "The Fleet",
@@ -215,45 +229,57 @@ export default function Home() {
               },
               {
                 title: "The Models",
-                description: "Opus 4.5, Claude Code, Qwen models, Gemini, Perplexity, OpenAI — the right tool for each job",
+                description: "Opus 4.5, Claude Code, Qwen models, Gemini, Perplexity — the right tool for each job",
               },
               {
                 title: "The Foundation",
-                description: "Unix mastery, networking, tunneling, virtualization. Three decades of infrastructure experience",
+                description: "Unix mastery, networking, tunneling, virtualization. Three decades of infrastructure",
               },
               {
                 title: "The Workflow",
-                description: "Discord + agents, Kanban + GitHub issues. 60% code, 40% docs. Everything tracked, nothing lost",
+                description: "Discord + agents, Kanban + GitHub. 60% code, 40% docs. Everything tracked",
               },
               {
                 title: "The Edge",
-                description: "Context engineering before it had a name. Solutions before the 'experts' publish them",
+                description: "Context engineering before it had a name. Solutions before the experts publish them",
               },
               {
                 title: "The Method",
-                description: "Decompose → Find prior art → Synthesize → Adopt early, verify fast",
+                description: "Decompose → Prior art → Synthesize → Adopt early, verify fast",
               },
             ].map((item) => (
               <div
                 key={item.title}
-                className="p-6 bg-zinc-900/30 rounded-xl border border-zinc-800"
+                className="bg-black p-8 md:p-10 group hover:bg-zinc-900 transition-colors"
               >
-                <h3 className="text-lg font-semibold text-white mb-2">{item.title}</h3>
-                <p className="text-zinc-400">{item.description}</p>
+                <h3 className="text-xl font-bold text-white mb-3 uppercase tracking-wide">{item.title}</h3>
+                <p className="text-zinc-500 group-hover:text-zinc-400 transition-colors leading-relaxed">{item.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-24 border-t border-zinc-900">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="max-w-2xl">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Let&apos;s Talk
+      {/* Full bleed image break */}
+      <section className="relative h-[50vh] md:h-[70vh]">
+        <Image
+          src="/images/mikeoneal-portrait-office-fullbody.png"
+          alt="Mike ONeal"
+          fill
+          className="object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30" />
+      </section>
+
+      {/* Contact Section - Bold CTA */}
+      <section id="contact" className="py-24 md:py-32">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          <div className="max-w-3xl">
+            <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4">Contact</p>
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter text-white mb-6 leading-[0.9]">
+              LET&apos;S<br />TALK
             </h2>
-            <p className="text-lg text-zinc-400 mb-8 leading-relaxed">
+            <p className="text-xl text-zinc-400 mb-10 leading-relaxed max-w-xl">
               For C-level types who want results. I&apos;m always looking for high-level tasks 
               to aim at like a guided, hypersonic missile.
             </p>
@@ -261,7 +287,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4">
               <a
                 href="mailto:mike@mikeoneal.com"
-                className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-black bg-white rounded-full hover:bg-zinc-200 transition-colors"
+                className="inline-flex items-center justify-center px-10 py-5 text-lg font-bold uppercase tracking-wider text-black bg-white hover:bg-zinc-200 transition-all"
               >
                 Get in Touch
               </a>
@@ -269,7 +295,7 @@ export default function Home() {
                 href="https://linkedin.com/in/mikeoneal"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border border-zinc-700 rounded-full hover:bg-zinc-900 transition-colors"
+                className="inline-flex items-center justify-center px-10 py-5 text-lg font-bold uppercase tracking-wider text-white border-2 border-white hover:bg-white hover:text-black transition-all"
               >
                 LinkedIn
               </a>
@@ -277,7 +303,7 @@ export default function Home() {
                 href="https://github.com/mikeoneal"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border border-zinc-700 rounded-full hover:bg-zinc-900 transition-colors"
+                className="inline-flex items-center justify-center px-10 py-5 text-lg font-bold uppercase tracking-wider text-white border-2 border-white hover:bg-white hover:text-black transition-all"
               >
                 GitHub
               </a>
@@ -288,9 +314,12 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="py-8 border-t border-zinc-900">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <p className="text-zinc-500 text-sm">
-            © {new Date().getFullYear()} Mike ONeal. All rights reserved.
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-zinc-600 text-sm uppercase tracking-wider">
+            © {new Date().getFullYear()} Mike ONeal
+          </p>
+          <p className="text-zinc-700 text-sm">
+            Built with autonomous AI agents
           </p>
         </div>
       </footer>
