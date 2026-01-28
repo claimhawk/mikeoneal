@@ -71,17 +71,17 @@ export default function Home() {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
               </p>
               <p className="text-lg text-zinc-500 leading-relaxed">
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Full Bleed Image */}
+      {/* Full Bleed - Mag11 Rooftop */}
       <section className="relative h-[60vh] md:h-[80vh]">
         <Image
-          src="/images/mikeoneal-portrait-rooftop.png"
+          src="/images/mikeoneal-mag11-rooftop.png"
           alt="Editorial"
           fill
           className="object-cover"
@@ -100,33 +100,33 @@ export default function Home() {
               <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-6">Chapter One</p>
               <h3 className="text-3xl md:text-4xl font-black text-white mb-6 tracking-tight">THE EARLY YEARS</h3>
               <p className="text-zinc-400 leading-relaxed mb-4">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
               </p>
               <p className="text-zinc-500 leading-relaxed">
-                Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit.
               </p>
             </div>
             <div>
               <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-6">Chapter Two</p>
               <h3 className="text-3xl md:text-4xl font-black text-white mb-6 tracking-tight">THE TURNING POINT</h3>
               <p className="text-zinc-400 leading-relaxed mb-4">
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet.
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
               </p>
               <p className="text-zinc-500 leading-relaxed">
-                Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud.
+                Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Magazine Spread - Large Image Left */}
+      {/* Magazine Spread - Portrait Studio */}
       <section className="py-24 md:py-32 bg-zinc-950">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="grid lg:grid-cols-2 gap-0">
             <div className="relative aspect-[4/5]">
               <Image
-                src="/images/mikeoneal-portrait-office.png"
+                src="/images/mikeoneal-portrait-studio.png"
                 alt="Editorial"
                 fill
                 className="object-cover"
@@ -138,10 +138,10 @@ export default function Home() {
                 THE<br />METHODOLOGY
               </h2>
               <p className="text-lg text-zinc-400 mb-6 leading-relaxed">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.
               </p>
               <p className="text-zinc-500 mb-8 leading-relaxed">
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
               </p>
               <a href="#" className="inline-flex items-center text-white font-bold uppercase tracking-wider hover:text-zinc-400 transition-colors group">
                 Read More
@@ -154,7 +154,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats/Numbers Section */}
+      {/* Stats */}
       <section className="py-24 md:py-32 border-y border-zinc-800">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
@@ -173,7 +173,18 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Capabilities List */}
+      {/* Full Bleed - Night Work */}
+      <section className="relative h-[50vh] md:h-[70vh]">
+        <Image
+          src="/images/mikeoneal-mag7-nightwork.png"
+          alt="Night Work"
+          fill
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30" />
+      </section>
+
+      {/* Capabilities */}
       <section className="py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-8">Expertise</p>
@@ -205,31 +216,31 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Image Grid */}
+      {/* Image Grid - Mix of all favorites */}
       <section className="py-24 md:py-32 bg-zinc-950">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-8">Gallery</p>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             <div className="relative aspect-square">
-              <Image src="/images/mikeoneal-portrait-studio.png" alt="Gallery" fill className="object-cover" />
+              <Image src="/images/mikeoneal-closeup-intense.png" alt="Gallery" fill className="object-cover" />
             </div>
             <div className="relative aspect-square">
+              <Image src="/images/mikeoneal-portrait-office-v2.png" alt="Gallery" fill className="object-cover" />
+            </div>
+            <div className="relative aspect-square">
+              <Image src="/images/mikeoneal-mag4-closeup.png" alt="Gallery" fill className="object-cover" />
+            </div>
+            <div className="relative aspect-square md:col-span-2">
               <Image src="/images/mikeoneal-portrait-office-fullbody.png" alt="Gallery" fill className="object-cover" />
             </div>
             <div className="relative aspect-square">
               <Image src="/images/mikeoneal-portrait-rooftop.png" alt="Gallery" fill className="object-cover" />
             </div>
-            <div className="relative aspect-square md:col-span-2">
-              <Image src="/images/mikeoneal-portrait-office-v2.png" alt="Gallery" fill className="object-cover" />
-            </div>
-            <div className="relative aspect-square">
-              <Image src="/images/mikeoneal-portrait-office.png" alt="Gallery" fill className="object-cover" />
-            </div>
           </div>
         </div>
       </section>
 
-      {/* Featured Project Spread */}
+      {/* Featured Project - Office v2 */}
       <section id="work" className="py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-0">
@@ -242,7 +253,7 @@ export default function Home() {
                 Lorem ipsum dolor sit amet
               </p>
               <p className="text-zinc-500 mb-8 leading-relaxed">
-                Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+                Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
               </p>
               <div className="flex flex-wrap gap-3 mb-8">
                 {["Python", "ML", "Vision", "Cloud", "Next.js", "API"].map((tech) => (
@@ -256,13 +267,13 @@ export default function Home() {
               </a>
             </div>
             <div className="relative aspect-[4/5] lg:aspect-auto lg:min-h-[600px] order-1 lg:order-2">
-              <Image src="/images/mikeoneal-portrait-studio-34body.png" alt="Project" fill className="object-cover" />
+              <Image src="/images/mikeoneal-portrait-office-v2.png" alt="Project" fill className="object-cover" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Quote Section */}
+      {/* Quote Section - Inverted */}
       <section className="py-24 md:py-32 bg-white text-black">
         <div className="max-w-5xl mx-auto px-6 lg:px-12 text-center">
           <p className="text-3xl md:text-4xl lg:text-5xl font-light leading-tight mb-8">
@@ -300,9 +311,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Full Bleed Image Break */}
+      {/* Full Bleed - Closeup Intense */}
       <section className="relative h-[50vh] md:h-[70vh]">
-        <Image src="/images/mikeoneal-portrait-office-fullbody.png" alt="Editorial" fill className="object-cover object-center" />
+        <Image src="/images/mikeoneal-closeup-intense.png" alt="Editorial" fill className="object-cover object-top" />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30" />
       </section>
 
@@ -332,7 +343,7 @@ export default function Home() {
               </div>
             </div>
             <div className="relative aspect-square hidden lg:block">
-              <Image src="/images/mikeoneal-portrait-studio.png" alt="Contact" fill className="object-cover" />
+              <Image src="/images/mikeoneal-mag4-closeup.png" alt="Contact" fill className="object-cover" />
             </div>
           </div>
         </div>
