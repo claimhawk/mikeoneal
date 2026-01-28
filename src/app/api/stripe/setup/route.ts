@@ -14,10 +14,10 @@ export async function POST() {
       );
     }
     
-    // Debug: check key format
+    // Debug: check key format and length
     if (!secretKey.startsWith('sk_')) {
       return NextResponse.json(
-        { error: 'Invalid key format', keyPrefix: secretKey.substring(0, 10) },
+        { error: 'Invalid key format', keyPrefix: secretKey.substring(0, 10), keyLen: secretKey.length },
         { status: 500 }
       );
     }
@@ -41,8 +41,9 @@ export async function POST() {
   } catch (error) {
     console.error('Error creating payment intent:', error);
     const message = error instanceof Error ? error.message : 'Unknown error';
+    const keyLen = process.env.STRIPE_SECRET_KEY?.length || 0;
     return NextResponse.json(
-      { error: 'Failed to initialize payment', details: message },
+      { error: 'Failed to initialize payment', details: message, keyLen },
       { status: 500 }
     );
   }
