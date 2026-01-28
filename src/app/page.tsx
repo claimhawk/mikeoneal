@@ -29,7 +29,7 @@ export default function Home() {
       </section>
 
       {/* 2. CONTRARIAN & ENGINEER */}
-      <section className="py-24 md:py-32 border-t border-zinc-900">
+      <section className="py-32 md:py-48 border-t border-zinc-900">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4">Contrarian & Engineer</p>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white mb-8 leading-[0.9]">
@@ -73,7 +73,7 @@ export default function Home() {
       </section>
 
       {/* 4. PROGRAMMING JOURNEY */}
-      <section className="py-24 md:py-32 border-t border-zinc-900">
+      <section className="py-32 md:py-48 border-t border-zinc-900">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4">The Journey</p>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white mb-8 leading-[0.9]">
@@ -145,7 +145,7 @@ export default function Home() {
       </section>
 
       {/* 7. CTA */}
-      <section className="py-24 md:py-32 bg-zinc-950">
+      <section className="py-32 md:py-48 bg-zinc-950">
         <div className="max-w-5xl mx-auto px-6 lg:px-12">
           <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4 text-center">Let&apos;s Talk</p>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white mb-8 leading-[0.9] text-center">
@@ -160,12 +160,9 @@ export default function Home() {
           <p className="text-xl text-zinc-200 text-center mb-10">
             By the end of our conversation we will be ready to take the first steps to the new world together.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="https://calendly.com/mikeoneal" className="inline-flex items-center justify-center px-10 py-5 text-lg font-bold uppercase tracking-wider text-black bg-white hover:bg-zinc-200 transition-all">
+          <div className="flex justify-center">
+            <a href="https://calendly.com/mikeoneal" className="inline-flex items-center justify-center px-12 py-5 text-lg font-bold uppercase tracking-wider text-black bg-white hover:bg-zinc-200 transition-all">
               Schedule a Meeting
-            </a>
-            <a href="mailto:mike@mikeoneal.com" className="inline-flex items-center justify-center px-10 py-5 text-lg font-bold uppercase tracking-wider text-white border-2 border-white hover:bg-white hover:text-black transition-all">
-              Email Me
             </a>
           </div>
         </div>
