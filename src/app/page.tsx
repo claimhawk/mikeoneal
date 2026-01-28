@@ -11,7 +11,8 @@ export default function Home() {
             src="/images/mikeoneal-portrait-studio.png"
             alt="Michael ONeal"
             fill
-            className="object-cover object-[center_20%]"
+            className="object-cover"
+            style={{ objectPosition: 'center 15%' }}
             priority
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
@@ -51,7 +52,8 @@ export default function Home() {
             src="/images/mikeoneal-mag11-rooftop.png"
             alt="Machine Learning"
             fill
-            className="object-cover object-[center_30%]"
+            className="object-cover"
+            style={{ objectPosition: 'center 20%' }}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent" />
         </div>
@@ -95,7 +97,8 @@ export default function Home() {
             src="/images/mikeoneal-portrait-studio-34body.png"
             alt="Systems"
             fill
-            className="object-cover object-[center_25%]"
+            className="object-cover"
+            style={{ objectPosition: 'center 15%' }}
           />
           <div className="absolute inset-0 bg-gradient-to-l from-black via-black/70 to-transparent" />
         </div>
@@ -123,7 +126,8 @@ export default function Home() {
             src="/images/mikeoneal-portrait-office-v2.png"
             alt="Consulting"
             fill
-            className="object-cover object-[center_25%]"
+            className="object-cover"
+            style={{ objectPosition: 'center 20%' }}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent" />
         </div>
