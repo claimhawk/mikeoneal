@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, phone, selectedTime, notes, paymentMethodId } = body;
+    const { name, email, interest, selectedTime, notes, paymentMethodId } = body;
     
     // Validate required fields
     if (!name || !email || !selectedTime || !paymentMethodId) {
@@ -46,11 +46,8 @@ export async function POST(request: NextRequest) {
       amount: CONSULTATION_PRICE,
       currency: 'usd',
       payment_method: paymentMethodId,
+      payment_method_types: ['card'],
       confirm: true,
-      automatic_payment_methods: {
-        enabled: true,
-        allow_redirects: 'never',
-      },
       metadata: {
         name,
         email,
@@ -69,7 +66,7 @@ export async function POST(request: NextRequest) {
     const appointment = await Appointment.create({
       name,
       email,
-      phone,
+      interest,
       scheduledTime: new Date(selectedTime),
       notes,
       status: 'confirmed',

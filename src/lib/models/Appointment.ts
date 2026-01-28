@@ -4,7 +4,7 @@ import crypto from 'crypto';
 export interface IAppointment extends Document {
   name: string;
   email: string;
-  phone?: string;
+  interest?: string;
   scheduledTime: Date;
   notes?: string;
   status: 'pending' | 'confirmed' | 'cancelled' | 'rescheduled';
@@ -22,7 +22,7 @@ const AppointmentSchema = new Schema<IAppointment>(
   {
     name: { type: String, required: true },
     email: { type: String, required: true },
-    phone: { type: String },
+    interest: { type: String },
     scheduledTime: { type: Date, required: true },
     notes: { type: String },
     status: { 
