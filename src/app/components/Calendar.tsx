@@ -135,17 +135,6 @@ export function Calendar({ availableDates, selectedDate, onSelectDate }: Calenda
         ))}
       </div>
 
-      {/* Legend */}
-      <div className="flex items-center justify-center gap-6 mt-6 text-sm text-zinc-500">
-        <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-zinc-800" />
-          <span>Available</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-white" />
-          <span>Selected</span>
-        </div>
-      </div>
     </div>
   );
 }

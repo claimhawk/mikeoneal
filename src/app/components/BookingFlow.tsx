@@ -29,13 +29,21 @@ function getFomoSeed(): number {
 }
 
 // Seeded random - consistent for same seed + day combo
-function seededRandom(seed: number, day: number): number {
-  const x = Math.sin(seed + day * 9999) * 10000;
-  return x - Math.floor(x);
+function seededRandom(seed: number, dayStr: string): number {
+  // Create a hash from seed + day string
+  let hash = seed;
+  for (let i = 0; i < dayStr.length; i++) {
+    hash = ((hash << 5) - hash) + dayStr.charCodeAt(i);
+    hash = hash & hash; // Convert to 32-bit int
+  }
+  // Normalize to 0-1
+  return Math.abs(Math.sin(hash) * 10000) % 1;
 }
 
 // Filter slots to hide ~35% of days based on user's seed
 function applyFomoFilter(slots: Date[], seed: number): Date[] {
+  if (seed === 0) return slots; // No filter if seed not set yet
+  
   // Group by day
   const dayMap = new Map<string, Date[]>();
   slots.forEach(slot => {
@@ -46,12 +54,17 @@ function applyFomoFilter(slots: Date[], seed: number): Date[] {
   
   // Filter out ~35% of days
   const filtered: Date[] = [];
-  Array.from(dayMap.entries()).forEach(([dayKey, daySlots], idx) => {
-    const rand = seededRandom(seed, idx);
-    if (rand > 0.35) { // Keep 65%
+  Array.from(dayMap.entries()).forEach(([dayKey, daySlots]) => {
+    const rand = seededRandom(seed, dayKey);
+    if (rand > 0.35) { // Keep ~65%
       filtered.push(...daySlots);
     }
   });
+  
+  // Make sure we keep at least 3 days
+  if (filtered.length === 0 && slots.length > 0) {
+    return slots.slice(0, 9); // Return first 3 days worth
+  }
   
   return filtered;
 }
@@ -94,18 +107,19 @@ export function BookingFlow() {
   const [manageToken, setManageToken] = useState<string | null>(null);
 
   useEffect(() => {
-    setFomoSeed(getFomoSeed());
-    fetchSlots();
+    const seed = getFomoSeed();
+    setFomoSeed(seed);
+    fetchSlots(seed);
   }, []);
 
-  async function fetchSlots() {
+  async function fetchSlots(seed: number) {
     try {
       const res = await fetch("/api/appointments/slots");
       const data = await res.json();
       const allSlots = data.slots.map((s: string) => new Date(s));
-      // Apply FOMO filter
-      const seed = getFomoSeed();
-      setSlots(applyFomoFilter(allSlots, seed));
+      // Apply FOMO filter - hide ~35% of available days
+      const filtered = applyFomoFilter(allSlots, seed);
+      setSlots(filtered);
     } catch {
       setError("Failed to load available times");
     } finally {
@@ -177,9 +191,6 @@ export function BookingFlow() {
               <h3 className="text-3xl md:text-4xl font-black text-white mb-4">
                 Pick a Date
               </h3>
-              <p className="text-zinc-400 text-lg">
-                Available Monday, Tuesday & Wednesday
-              </p>
             </div>
 
             <Calendar
