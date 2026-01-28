@@ -45,15 +45,15 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <nav
           className={`flex items-center transition-all duration-500 ${
-            scrolled ? "h-12 justify-end gap-6" : "h-20 justify-between"
+            scrolled ? "h-12 justify-between" : "h-20 justify-end"
           }`}
         >
-          {/* Logo - hidden when scrolled */}
+          {/* Logo - shows "Michael ONeal" when scrolled */}
           <a
             href="#hero"
             onClick={(e) => handleClick(e, "#hero")}
             className={`font-black text-white tracking-tighter transition-all duration-500 ${
-              scrolled ? "opacity-0 absolute pointer-events-none" : "opacity-100 text-2xl"
+              scrolled ? "opacity-100 text-sm" : "opacity-0 absolute pointer-events-none"
             }`}
           >
             Michael ONeal
