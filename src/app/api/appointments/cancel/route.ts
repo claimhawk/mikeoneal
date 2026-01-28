@@ -36,10 +36,8 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    // Determine the appointment time (use confirmedTime or primaryTime)
-    const appointmentTime = appointment.confirmedTime || appointment.primaryTime;
     const now = new Date();
-    const timeUntilAppointment = appointmentTime.getTime() - now.getTime();
+    const timeUntilAppointment = appointment.scheduledTime.getTime() - now.getTime();
     
     // Calculate refund amount
     const isMoreThan48Hours = timeUntilAppointment > HOURS_48;

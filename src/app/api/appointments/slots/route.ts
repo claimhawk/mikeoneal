@@ -47,16 +47,12 @@ export async function GET() {
     // Get all booked times
     const bookedAppointments = await Appointment.find({
       status: { $in: ['pending', 'confirmed'] },
-      $or: [
-        { primaryTime: { $gte: new Date() } },
-        { alternateTime: { $gte: new Date() } }
-      ]
-    }).select('primaryTime alternateTime');
+      scheduledTime: { $gte: new Date() }
+    }).select('scheduledTime');
     
     const bookedTimes = new Set<string>();
     bookedAppointments.forEach(apt => {
-      bookedTimes.add(apt.primaryTime.toISOString());
-      bookedTimes.add(apt.alternateTime.toISOString());
+      bookedTimes.add(apt.scheduledTime.toISOString());
     });
     
     // Get all possible slots

@@ -40,8 +40,7 @@ export function BookingFlow() {
   const [slots, setSlots] = useState<Date[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [primaryTime, setPrimaryTime] = useState<Date | null>(null);
-  const [alternateTime, setAlternateTime] = useState<Date | null>(null);
+  const [selectedTime, setSelectedTime] = useState<Date | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -82,27 +81,15 @@ export function BookingFlow() {
 
   function handleDateSelect(date: Date) {
     setSelectedDate(date);
-    setPrimaryTime(null);
-    setAlternateTime(null);
+    setSelectedTime(null);
   }
 
   function handleTimeSelect(time: Date) {
-    if (!primaryTime) {
-      setPrimaryTime(time);
-    } else if (!alternateTime && time.getTime() !== primaryTime.getTime()) {
-      setAlternateTime(time);
-    } else if (time.getTime() === primaryTime.getTime()) {
-      setPrimaryTime(alternateTime);
-      setAlternateTime(null);
-    } else if (time.getTime() === alternateTime?.getTime()) {
-      setAlternateTime(null);
-    }
+    setSelectedTime(time);
   }
 
-  function isTimeSelected(time: Date): "primary" | "alternate" | false {
-    if (primaryTime && time.getTime() === primaryTime.getTime()) return "primary";
-    if (alternateTime && time.getTime() === alternateTime.getTime()) return "alternate";
-    return false;
+  function isTimeSelected(time: Date): boolean {
+    return selectedTime?.getTime() === time.getTime();
   }
 
   if (loading) {
@@ -185,31 +172,11 @@ export function BookingFlow() {
           >
             <div className="text-center mb-8">
               <h3 className="text-3xl md:text-4xl font-black text-white mb-4">
-                Choose Two Times
+                Pick a Time
               </h3>
               <p className="text-zinc-400 text-lg">
-                {selectedDate && formatDate(selectedDate)} — Select primary & backup
+                {selectedDate && formatDate(selectedDate)}
               </p>
-            </div>
-
-            {/* Selected times display */}
-            <div className="grid md:grid-cols-2 gap-4 mb-8">
-              <div className={`p-6 border-2 transition-all ${primaryTime ? "border-white bg-white/5" : "border-zinc-800 border-dashed"}`}>
-                <p className="text-xs uppercase tracking-widest text-zinc-500 mb-2">Primary Choice</p>
-                {primaryTime ? (
-                  <p className="text-2xl font-bold text-white">{formatTime(primaryTime)}</p>
-                ) : (
-                  <p className="text-zinc-600 text-lg">Select below</p>
-                )}
-              </div>
-              <div className={`p-6 border-2 transition-all ${alternateTime ? "border-white bg-white/5" : "border-zinc-800 border-dashed"}`}>
-                <p className="text-xs uppercase tracking-widest text-zinc-500 mb-2">Backup Choice</p>
-                {alternateTime ? (
-                  <p className="text-2xl font-bold text-white">{formatTime(alternateTime)}</p>
-                ) : (
-                  <p className="text-zinc-600 text-lg">Select below</p>
-                )}
-              </div>
             </div>
 
             {/* Time slots */}
@@ -223,16 +190,14 @@ export function BookingFlow() {
                     whileTap={{ scale: 0.98 }}
                     onClick={() => handleTimeSelect(slot)}
                     className={`p-8 text-center transition-all border-2 ${
-                      selected === "primary"
+                      selected
                         ? "bg-white text-black border-white"
-                        : selected === "alternate"
-                        ? "bg-zinc-800 text-white border-white"
                         : "bg-transparent text-zinc-400 border-zinc-800 hover:border-zinc-600 hover:text-white"
                     }`}
                   >
                     <span className="text-3xl font-black">{formatTime(slot)}</span>
                     <span className="block text-sm mt-2 uppercase tracking-wider">
-                      {selected === "primary" ? "Primary" : selected === "alternate" ? "Backup" : "90 minutes"}
+                      {selected ? "Selected" : "90 minutes"}
                     </span>
                   </motion.button>
                 );
@@ -252,9 +217,9 @@ export function BookingFlow() {
               </button>
               <button
                 onClick={() => setStep("details")}
-                disabled={!primaryTime || !alternateTime}
+                disabled={!selectedTime}
                 className={`flex-1 py-5 text-lg font-bold uppercase tracking-wider transition-all ${
-                  primaryTime && alternateTime
+                  selectedTime
                     ? "bg-white text-black hover:bg-zinc-200"
                     : "bg-zinc-800 text-zinc-600 cursor-not-allowed"
                 }`}
@@ -383,22 +348,14 @@ export function BookingFlow() {
                 <span className="text-zinc-400">Initial Consultation (90 min)</span>
                 <span className="text-2xl font-bold text-white">$199</span>
               </div>
-              <div className="text-sm text-zinc-500">
-                <p className="mb-2">
-                  <strong className="text-zinc-300">Primary:</strong>{" "}
-                  {primaryTime && `${formatDate(primaryTime)} at ${formatTime(primaryTime)}`}
-                </p>
-                <p>
-                  <strong className="text-zinc-300">Backup:</strong>{" "}
-                  {alternateTime && `${formatDate(alternateTime)} at ${formatTime(alternateTime)}`}
-                </p>
+              <div className="text-sm text-zinc-400">
+                {selectedTime && `${formatDate(selectedTime)} at ${formatTime(selectedTime)}`}
               </div>
             </div>
 
             <PaymentForm
               formData={formData}
-              primaryTime={primaryTime!}
-              alternateTime={alternateTime!}
+              selectedTime={selectedTime!}
               onSuccess={(token) => { setManageToken(token); setStep("success"); }}
               onBack={() => setStep("details")}
               error={error}
@@ -454,8 +411,7 @@ export function BookingFlow() {
 
 interface PaymentFormProps {
   formData: { name: string; email: string; phone: string; notes: string };
-  primaryTime: Date;
-  alternateTime: Date;
+  selectedTime: Date;
   onSuccess: (manageToken: string) => void;
   onBack: () => void;
   error: string | null;
@@ -464,7 +420,7 @@ interface PaymentFormProps {
   setSubmitting: (s: boolean) => void;
 }
 
-function PaymentFormInner({ formData, primaryTime, alternateTime, onSuccess, onBack, error, setError, submitting, setSubmitting }: PaymentFormProps) {
+function PaymentFormInner({ formData, selectedTime, onSuccess, onBack, error, setError, submitting, setSubmitting }: PaymentFormProps) {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -492,8 +448,7 @@ function PaymentFormInner({ formData, primaryTime, alternateTime, onSuccess, onB
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
-          primaryTime: primaryTime.toISOString(),
-          alternateTime: alternateTime.toISOString(),
+          selectedTime: selectedTime.toISOString(),
           paymentMethodId: paymentMethod.id,
         }),
       });

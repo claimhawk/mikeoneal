@@ -24,17 +24,14 @@ export async function GET(
       );
     }
     
-    const appointmentTime = appointment.confirmedTime || appointment.primaryTime;
     const now = new Date();
-    const timeUntilAppointment = appointmentTime.getTime() - now.getTime();
+    const timeUntilAppointment = appointment.scheduledTime.getTime() - now.getTime();
     const canReschedule = timeUntilAppointment > HOURS_48;
     
     return NextResponse.json({
       name: appointment.name,
       email: appointment.email,
-      primaryTime: appointment.primaryTime,
-      alternateTime: appointment.alternateTime,
-      confirmedTime: appointment.confirmedTime,
+      scheduledTime: appointment.scheduledTime,
       status: appointment.status,
       canReschedule,
       canCancel: appointment.status !== 'cancelled',

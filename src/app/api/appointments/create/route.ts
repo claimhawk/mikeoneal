@@ -8,10 +8,10 @@ export const dynamic = 'force-dynamic';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, phone, primaryTime, alternateTime, notes, paymentMethodId } = body;
+    const { name, email, phone, selectedTime, notes, paymentMethodId } = body;
     
     // Validate required fields
-    if (!name || !email || !primaryTime || !alternateTime || !paymentMethodId) {
+    if (!name || !email || !selectedTime || !paymentMethodId) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -21,19 +21,14 @@ export async function POST(request: NextRequest) {
     await connectToDatabase();
     
     // Check for conflicts
-    const conflictingAppointments = await Appointment.findOne({
+    const conflictingAppointment = await Appointment.findOne({
       status: { $in: ['pending', 'confirmed'] },
-      $or: [
-        { primaryTime: new Date(primaryTime) },
-        { alternateTime: new Date(primaryTime) },
-        { primaryTime: new Date(alternateTime) },
-        { alternateTime: new Date(alternateTime) },
-      ]
+      scheduledTime: new Date(selectedTime),
     });
     
-    if (conflictingAppointments) {
+    if (conflictingAppointment) {
       return NextResponse.json(
-        { error: 'One or both of your selected times are no longer available' },
+        { error: 'This time slot is no longer available' },
         { status: 409 }
       );
     }
@@ -59,8 +54,7 @@ export async function POST(request: NextRequest) {
       metadata: {
         name,
         email,
-        primaryTime,
-        alternateTime,
+        scheduledTime: selectedTime,
       },
     });
     
@@ -76,8 +70,7 @@ export async function POST(request: NextRequest) {
       name,
       email,
       phone,
-      primaryTime: new Date(primaryTime),
-      alternateTime: new Date(alternateTime),
+      scheduledTime: new Date(selectedTime),
       notes,
       status: 'confirmed',
       stripePaymentId: paymentIntent.id,
@@ -88,8 +81,7 @@ export async function POST(request: NextRequest) {
       success: true, 
       appointment: {
         id: appointment._id,
-        primaryTime: appointment.primaryTime,
-        alternateTime: appointment.alternateTime,
+        scheduledTime: appointment.scheduledTime,
         manageToken: appointment.manageToken,
       }
     });

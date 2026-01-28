@@ -3,47 +3,36 @@
 import { useState, useEffect, use } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { Calendar } from "@/app/components/Calendar";
 
 interface AppointmentData {
   name: string;
   email: string;
-  primaryTime: string;
-  alternateTime: string;
-  confirmedTime?: string;
+  scheduledTime: string;
   status: string;
   canReschedule: boolean;
   canCancel: boolean;
   refundPercent: number;
 }
 
-interface TimeSlot {
-  date: Date;
-  formatted: string;
-  time: string;
+function formatTime(date: Date): string {
+  return date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
 }
 
-function formatSlot(date: Date): TimeSlot {
-  const d = new Date(date);
-  return {
-    date: d,
-    formatted: d.toLocaleDateString("en-US", {
-      weekday: "long",
-      month: "long",
-      day: "numeric",
-    }),
-    time: d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }),
-  };
-}
-
-function groupSlotsByDay(slots: Date[]): Map<string, TimeSlot[]> {
-  const groups = new Map<string, TimeSlot[]>();
-  slots.forEach(slot => {
-    const formatted = formatSlot(slot);
-    const dayKey = formatted.formatted;
-    if (!groups.has(dayKey)) groups.set(dayKey, []);
-    groups.get(dayKey)!.push(formatted);
+function formatDate(date: Date): string {
+  return date.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
   });
-  return groups;
+}
+
+function isSameDay(a: Date, b: Date): boolean {
+  return (
+    a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate()
+  );
 }
 
 export default function ManageAppointmentPage({ params }: { params: Promise<{ token: string }> }) {
@@ -51,10 +40,10 @@ export default function ManageAppointmentPage({ params }: { params: Promise<{ to
   const [appointment, setAppointment] = useState<AppointmentData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [view, setView] = useState<"details" | "reschedule" | "cancel" | "cancelled" | "rescheduled">("details");
+  const [view, setView] = useState<"details" | "reschedule-date" | "reschedule-time" | "cancel" | "cancelled" | "rescheduled">("details");
   const [slots, setSlots] = useState<Date[]>([]);
-  const [primaryTime, setPrimaryTime] = useState<Date | null>(null);
-  const [alternateTime, setAlternateTime] = useState<Date | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedTime, setSelectedTime] = useState<Date | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [refundAmount, setRefundAmount] = useState<number | null>(null);
 
@@ -87,6 +76,18 @@ export default function ManageAppointmentPage({ params }: { params: Promise<{ to
     }
   }
 
+  // Get unique dates from slots
+  const availableDates = slots.reduce((acc: Date[], slot) => {
+    const exists = acc.some(d => isSameDay(d, slot));
+    if (!exists) acc.push(slot);
+    return acc;
+  }, []);
+
+  // Get slots for selected date
+  const slotsForSelectedDate = selectedDate
+    ? slots.filter(slot => isSameDay(slot, selectedDate))
+    : [];
+
   async function handleCancel() {
     setSubmitting(true);
     try {
@@ -107,7 +108,7 @@ export default function ManageAppointmentPage({ params }: { params: Promise<{ to
   }
 
   async function handleReschedule() {
-    if (!primaryTime || !alternateTime) return;
+    if (!selectedTime) return;
     setSubmitting(true);
     try {
       const res = await fetch("/api/appointments/reschedule", {
@@ -115,8 +116,7 @@ export default function ManageAppointmentPage({ params }: { params: Promise<{ to
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           token,
-          newPrimaryTime: primaryTime.toISOString(),
-          newAlternateTime: alternateTime.toISOString(),
+          newTime: selectedTime.toISOString(),
         }),
       });
       const data = await res.json();
@@ -128,27 +128,6 @@ export default function ManageAppointmentPage({ params }: { params: Promise<{ to
       setSubmitting(false);
     }
   }
-
-  function handleTimeSelect(time: Date) {
-    if (!primaryTime) {
-      setPrimaryTime(time);
-    } else if (!alternateTime && time.getTime() !== primaryTime.getTime()) {
-      setAlternateTime(time);
-    } else if (time.getTime() === primaryTime.getTime()) {
-      setPrimaryTime(alternateTime);
-      setAlternateTime(null);
-    } else if (time.getTime() === alternateTime?.getTime()) {
-      setAlternateTime(null);
-    }
-  }
-
-  function isSelected(time: Date): "primary" | "alternate" | false {
-    if (primaryTime && time.getTime() === primaryTime.getTime()) return "primary";
-    if (alternateTime && time.getTime() === alternateTime.getTime()) return "alternate";
-    return false;
-  }
-
-  const groupedSlots = groupSlotsByDay(slots);
 
   if (loading) {
     return (
@@ -169,8 +148,6 @@ export default function ManageAppointmentPage({ params }: { params: Promise<{ to
       </div>
     );
   }
-
-  const appointmentTime = appointment?.confirmedTime || appointment?.primaryTime;
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -193,12 +170,8 @@ export default function ManageAppointmentPage({ params }: { params: Promise<{ to
 
               <div className="bg-zinc-900 p-8 mb-8">
                 <p className="text-xs uppercase tracking-widest text-zinc-500 mb-2">Your Appointment</p>
-                {appointmentTime && (
-                  <>
-                    <p className="text-3xl font-bold text-white">{formatSlot(new Date(appointmentTime)).time}</p>
-                    <p className="text-zinc-400">{formatSlot(new Date(appointmentTime)).formatted}</p>
-                  </>
-                )}
+                <p className="text-3xl font-bold text-white">{formatTime(new Date(appointment.scheduledTime))}</p>
+                <p className="text-zinc-400">{formatDate(new Date(appointment.scheduledTime))}</p>
                 <p className="text-xs uppercase tracking-widest text-zinc-500 mt-6 mb-1">Status</p>
                 <p className="text-white font-bold capitalize">{appointment.status}</p>
               </div>
@@ -212,7 +185,7 @@ export default function ManageAppointmentPage({ params }: { params: Promise<{ to
               <div className="space-y-4">
                 {appointment.canReschedule && (
                   <button
-                    onClick={() => setView("reschedule")}
+                    onClick={() => setView("reschedule-date")}
                     className="w-full py-5 text-lg font-bold uppercase tracking-wider bg-white text-black hover:bg-zinc-200 transition-all"
                   >
                     Reschedule Appointment
@@ -230,70 +203,93 @@ export default function ManageAppointmentPage({ params }: { params: Promise<{ to
             </motion.div>
           )}
 
-          {/* RESCHEDULE VIEW */}
-          {view === "reschedule" && (
+          {/* RESCHEDULE - DATE */}
+          {view === "reschedule-date" && (
             <motion.div
-              key="reschedule"
+              key="reschedule-date"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
             >
-              <h1 className="text-4xl font-black text-white mb-2">Reschedule</h1>
-              <p className="text-zinc-400 mb-8">Choose two new times that work for you.</p>
+              <h1 className="text-4xl font-black text-white mb-2">Pick a New Date</h1>
+              <p className="text-zinc-400 mb-8">Select when you&apos;d like to reschedule.</p>
 
-              {/* Selected times */}
-              <div className="grid md:grid-cols-2 gap-4 mb-8">
-                <div className={`p-6 border-2 transition-all ${primaryTime ? "border-white bg-white/5" : "border-zinc-800 border-dashed"}`}>
-                  <p className="text-xs uppercase tracking-widest text-zinc-500 mb-2">Primary Choice</p>
-                  {primaryTime ? (
-                    <div>
-                      <p className="text-2xl font-bold text-white">{formatSlot(primaryTime).time}</p>
-                      <p className="text-zinc-400">{formatSlot(primaryTime).formatted}</p>
-                    </div>
-                  ) : (
-                    <p className="text-zinc-600 text-lg">Select from below</p>
-                  )}
-                </div>
-                <div className={`p-6 border-2 transition-all ${alternateTime ? "border-white bg-white/5" : "border-zinc-800 border-dashed"}`}>
-                  <p className="text-xs uppercase tracking-widest text-zinc-500 mb-2">Backup Choice</p>
-                  {alternateTime ? (
-                    <div>
-                      <p className="text-2xl font-bold text-white">{formatSlot(alternateTime).time}</p>
-                      <p className="text-zinc-400">{formatSlot(alternateTime).formatted}</p>
-                    </div>
-                  ) : (
-                    <p className="text-zinc-600 text-lg">Select from below</p>
-                  )}
-                </div>
+              <Calendar
+                availableDates={availableDates}
+                selectedDate={selectedDate}
+                onSelectDate={(date) => {
+                  setSelectedDate(date);
+                  setSelectedTime(null);
+                }}
+              />
+
+              {selectedDate && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-center mt-8"
+                >
+                  <p className="text-zinc-400 mb-4">
+                    Selected: <span className="text-white font-bold">{formatDate(selectedDate)}</span>
+                  </p>
+                </motion.div>
+              )}
+
+              <div className="flex gap-4 mt-8">
+                <button
+                  onClick={() => { setView("details"); setError(null); setSelectedDate(null); }}
+                  className="px-8 py-5 text-lg font-bold uppercase tracking-wider text-zinc-400 border-2 border-zinc-800"
+                >
+                  Back
+                </button>
+                <button
+                  onClick={() => setView("reschedule-time")}
+                  disabled={!selectedDate}
+                  className={`flex-1 py-5 text-lg font-bold uppercase tracking-wider transition-all ${
+                    selectedDate
+                      ? "bg-white text-black hover:bg-zinc-200"
+                      : "bg-zinc-800 text-zinc-600 cursor-not-allowed"
+                  }`}
+                >
+                  Choose Time
+                </button>
               </div>
+            </motion.div>
+          )}
 
-              {/* Slots */}
-              <div className="space-y-6 max-h-[300px] overflow-y-auto pr-2 mb-8">
-                {Array.from(groupedSlots.entries()).map(([day, daySlots]) => (
-                  <div key={day}>
-                    <p className="text-sm uppercase tracking-widest text-zinc-500 mb-3">{day}</p>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                      {daySlots.map((slot) => {
-                        const selected = isSelected(slot.date);
-                        return (
-                          <button
-                            key={slot.date.toISOString()}
-                            onClick={() => handleTimeSelect(slot.date)}
-                            className={`p-4 text-center transition-all border-2 ${
-                              selected === "primary"
-                                ? "bg-white text-black border-white"
-                                : selected === "alternate"
-                                ? "bg-zinc-800 text-white border-white"
-                                : "bg-transparent text-zinc-400 border-zinc-800 hover:border-zinc-600 hover:text-white"
-                            }`}
-                          >
-                            <span className="text-lg font-bold">{slot.time}</span>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ))}
+          {/* RESCHEDULE - TIME */}
+          {view === "reschedule-time" && (
+            <motion.div
+              key="reschedule-time"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+            >
+              <h1 className="text-4xl font-black text-white mb-2">Pick a Time</h1>
+              <p className="text-zinc-400 mb-8">{selectedDate && formatDate(selectedDate)}</p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                {slotsForSelectedDate.map((slot) => {
+                  const isSelected = selectedTime?.getTime() === slot.getTime();
+                  return (
+                    <motion.button
+                      key={slot.toISOString()}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => setSelectedTime(slot)}
+                      className={`p-8 text-center transition-all border-2 ${
+                        isSelected
+                          ? "bg-white text-black border-white"
+                          : "bg-transparent text-zinc-400 border-zinc-800 hover:border-zinc-600 hover:text-white"
+                      }`}
+                    >
+                      <span className="text-3xl font-black">{formatTime(slot)}</span>
+                      <span className="block text-sm mt-2 uppercase tracking-wider">
+                        {isSelected ? "Selected" : "90 minutes"}
+                      </span>
+                    </motion.button>
+                  );
+                })}
               </div>
 
               {error && (
@@ -304,21 +300,21 @@ export default function ManageAppointmentPage({ params }: { params: Promise<{ to
 
               <div className="flex gap-4">
                 <button
-                  onClick={() => { setView("details"); setError(null); }}
+                  onClick={() => setView("reschedule-date")}
                   className="px-8 py-5 text-lg font-bold uppercase tracking-wider text-zinc-400 border-2 border-zinc-800"
                 >
                   Back
                 </button>
                 <button
                   onClick={handleReschedule}
-                  disabled={!primaryTime || !alternateTime || submitting}
+                  disabled={!selectedTime || submitting}
                   className={`flex-1 py-5 text-lg font-bold uppercase tracking-wider transition-all ${
-                    primaryTime && alternateTime && !submitting
+                    selectedTime && !submitting
                       ? "bg-white text-black hover:bg-zinc-200"
                       : "bg-zinc-800 text-zinc-600 cursor-not-allowed"
                   }`}
                 >
-                  {submitting ? "Updating..." : "Confirm New Times"}
+                  {submitting ? "Updating..." : "Confirm New Time"}
                 </button>
               </div>
             </motion.div>
@@ -404,7 +400,7 @@ export default function ManageAppointmentPage({ params }: { params: Promise<{ to
               </div>
               <h1 className="text-4xl font-black text-white mb-4">Rescheduled!</h1>
               <p className="text-zinc-400 text-lg mb-8">
-                Your new times have been submitted. I&apos;ll confirm via email shortly.
+                Your appointment has been updated. See you then!
               </p>
               <Link href="/" className="inline-block py-4 px-8 bg-white text-black font-bold uppercase tracking-wider">
                 Return Home
