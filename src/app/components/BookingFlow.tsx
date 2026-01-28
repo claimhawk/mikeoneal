@@ -65,6 +65,7 @@ export function BookingFlow() {
   });
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [manageToken, setManageToken] = useState<string | null>(null);
 
   useEffect(() => {
     fetchSlots();
@@ -348,7 +349,7 @@ export function BookingFlow() {
               formData={formData}
               primaryTime={primaryTime!}
               alternateTime={alternateTime!}
-              onSuccess={() => setStep("success")}
+              onSuccess={(token) => { setManageToken(token); setStep("success"); }}
               onBack={() => setStep("details")}
               error={error}
               setError={setError}
@@ -377,9 +378,23 @@ export function BookingFlow() {
             <p className="text-zinc-400 text-lg mb-8 max-w-md mx-auto">
               I&apos;ll confirm your appointment time via email shortly. Looking forward to our conversation.
             </p>
-            <p className="text-zinc-500">
+            <p className="text-zinc-500 mb-8">
               Check your inbox at <strong className="text-white">{formData.email}</strong>
             </p>
+            {manageToken && (
+              <div className="bg-zinc-900 p-6 max-w-md mx-auto">
+                <p className="text-xs uppercase tracking-widest text-zinc-500 mb-2">Need to make changes?</p>
+                <p className="text-zinc-400 text-sm mb-4">
+                  You can reschedule (48+ hours before) or cancel your appointment anytime.
+                </p>
+                <a 
+                  href={`/manage/${manageToken}`}
+                  className="text-white underline hover:no-underline"
+                >
+                  Manage Your Appointment →
+                </a>
+              </div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
@@ -391,7 +406,7 @@ interface PaymentFormProps {
   formData: { name: string; email: string; phone: string; notes: string };
   primaryTime: Date;
   alternateTime: Date;
-  onSuccess: () => void;
+  onSuccess: (manageToken: string) => void;
   onBack: () => void;
   error: string | null;
   setError: (e: string | null) => void;
@@ -441,7 +456,7 @@ function PaymentFormInner({ formData, primaryTime, alternateTime, onSuccess, onB
         return;
       }
       
-      onSuccess();
+      onSuccess(data.appointment.manageToken);
     } catch {
       setError("An unexpected error occurred");
       setSubmitting(false);

@@ -90,6 +90,7 @@ export async function POST(request: NextRequest) {
         id: appointment._id,
         primaryTime: appointment.primaryTime,
         alternateTime: appointment.alternateTime,
+        manageToken: appointment.manageToken,
       }
     });
   } catch (error) {
