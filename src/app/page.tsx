@@ -1,12 +1,14 @@
 import Image from "next/image";
 import { AnimatedSection } from "./components/AnimatedSection";
+import { Header } from "./components/Header";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-black text-white">
+      <Header />
       
       {/* 1. HERO */}
-      <section className="relative min-h-screen flex items-end">
+      <section id="hero" className="relative min-h-screen flex items-end">
         <div className="absolute inset-0">
           <Image
             src="/images/mikeoneal-portrait-studio.png"
@@ -30,7 +32,7 @@ export default function Home() {
       </section>
 
       {/* 2. CONTRARIAN & ENGINEER */}
-      <AnimatedSection className="min-h-screen flex items-center border-t border-zinc-900">
+      <AnimatedSection id="philosophy" className="min-h-screen flex items-center border-t border-zinc-900">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20">
           <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4">Contrarian & Engineer</p>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white mb-8 leading-[0.9]">
@@ -46,7 +48,7 @@ export default function Home() {
       </AnimatedSection>
 
       {/* 3. MACHINE LEARNING */}
-      <section className="relative min-h-screen flex items-center">
+      <section id="ml" className="relative min-h-screen flex items-center">
         <div className="absolute inset-0">
           <Image
             src="/images/mikeoneal-mag11-rooftop.png"
@@ -74,7 +76,7 @@ export default function Home() {
       </section>
 
       {/* 4. PROGRAMMING JOURNEY */}
-      <section className="min-h-screen flex items-center border-t border-zinc-900">
+      <section id="journey" className="min-h-screen flex items-center border-t border-zinc-900">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20">
           <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4">The Journey</p>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white mb-8 leading-[0.9]">
@@ -90,7 +92,7 @@ export default function Home() {
       </section>
 
       {/* 5. SYSTEMS BUILDING */}
-      <section className="relative min-h-screen flex items-center">
+      <section id="systems" className="relative min-h-screen flex items-center">
         <div className="absolute inset-0">
           <Image
             src="/images/mikeoneal-portrait-studio-34body.png"
@@ -118,7 +120,7 @@ export default function Home() {
       </section>
 
       {/* 6. WORK WITH ME */}
-      <section className="relative min-h-screen flex items-center">
+      <section id="work" className="relative min-h-screen flex items-center">
         <div className="absolute inset-0">
           <Image
             src="/images/mikeoneal-portrait-office-v2.png"
@@ -146,7 +148,7 @@ export default function Home() {
       </section>
 
       {/* 7. CTA */}
-      <section className="min-h-screen flex items-center bg-zinc-950">
+      <section id="contact" className="min-h-screen flex items-center bg-zinc-950">
         <div className="max-w-5xl mx-auto px-6 lg:px-12">
           <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4 text-center">Let&apos;s Talk</p>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white mb-8 leading-[0.9] text-center">

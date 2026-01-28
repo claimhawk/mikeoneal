@@ -6,11 +6,13 @@ import { ReactNode } from "react";
 interface AnimatedSectionProps {
   children: ReactNode;
   className?: string;
+  id?: string;
 }
 
-export function AnimatedSection({ children, className }: AnimatedSectionProps) {
+export function AnimatedSection({ children, className, id }: AnimatedSectionProps) {
   return (
     <motion.section
+      id={id}
       className={className}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
