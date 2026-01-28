@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 const NAV_LINKS = [
-  { label: "Home", href: "#hero" },
   { label: "Philosophy", href: "#philosophy" },
   { label: "ML", href: "#ml" },
   { label: "Journey", href: "#journey" },
@@ -45,46 +44,38 @@ export function Header() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <nav
-          className={`flex items-center justify-between transition-all duration-500 ${
-            scrolled ? "h-16" : "h-20"
+          className={`flex items-center transition-all duration-500 ${
+            scrolled ? "h-12 justify-end gap-6" : "h-20 justify-between"
           }`}
         >
-          {/* Logo */}
+          {/* Logo - hidden when scrolled */}
           <a
             href="#hero"
             onClick={(e) => handleClick(e, "#hero")}
-            className="font-black text-white tracking-tighter transition-all duration-300"
-            style={{ fontSize: scrolled ? "1.25rem" : "1.5rem" }}
+            className={`font-black text-white tracking-tighter transition-all duration-500 ${
+              scrolled ? "opacity-0 absolute pointer-events-none" : "opacity-100 text-2xl"
+            }`}
           >
-            Michael
+            Michael ONeal
           </a>
 
           {/* Nav Links */}
-          <div className="hidden md:flex items-center gap-1">
-            {NAV_LINKS.slice(1).map((link) => (
+          <div className={`hidden md:flex items-center transition-all duration-500 ${
+            scrolled ? "gap-4" : "gap-1"
+          }`}>
+            {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={(e) => handleClick(e, link.href)}
-                className={`px-4 py-2 text-zinc-400 hover:text-white transition-all duration-300 ${
-                  scrolled ? "text-xs" : "text-sm"
-                } uppercase tracking-wider`}
+                className={`text-zinc-400 hover:text-white transition-all duration-300 uppercase tracking-wider ${
+                  scrolled ? "text-xs px-2 py-1" : "text-sm px-4 py-2"
+                }`}
               >
                 {link.label}
               </a>
             ))}
           </div>
-
-          {/* CTA Button */}
-          <a
-            href="#contact"
-            onClick={(e) => handleClick(e, "#contact")}
-            className={`hidden sm:inline-flex items-center justify-center font-bold uppercase tracking-wider text-black bg-white hover:bg-zinc-200 transition-all duration-300 ${
-              scrolled ? "px-4 py-2 text-xs" : "px-5 py-2.5 text-sm"
-            }`}
-          >
-            Let&apos;s Talk
-          </a>
 
           {/* Mobile Menu Button */}
           <button
