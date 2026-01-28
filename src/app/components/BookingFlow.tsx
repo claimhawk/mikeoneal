@@ -9,52 +9,37 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import { Calendar } from "./Calendar";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
-type Step = "times" | "details" | "payment" | "success";
+type Step = "date" | "time" | "details" | "payment" | "success";
 
-interface TimeSlot {
-  date: Date;
-  formatted: string;
-  day: string;
-  time: string;
+function formatTime(date: Date): string {
+  return date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
 }
 
-function formatSlot(date: Date): TimeSlot {
-  const d = new Date(date);
-  return {
-    date: d,
-    formatted: d.toLocaleDateString("en-US", {
-      weekday: "long",
-      month: "long",
-      day: "numeric",
-    }),
-    day: d.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" }),
-    time: d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }),
-  };
-}
-
-function groupSlotsByDay(slots: Date[]): Map<string, TimeSlot[]> {
-  const groups = new Map<string, TimeSlot[]>();
-  
-  slots.forEach(slot => {
-    const formatted = formatSlot(slot);
-    const dayKey = formatted.formatted;
-    
-    if (!groups.has(dayKey)) {
-      groups.set(dayKey, []);
-    }
-    groups.get(dayKey)!.push(formatted);
+function formatDate(date: Date): string {
+  return date.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
   });
-  
-  return groups;
+}
+
+function isSameDay(a: Date, b: Date): boolean {
+  return (
+    a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate()
+  );
 }
 
 export function BookingFlow() {
-  const [step, setStep] = useState<Step>("times");
+  const [step, setStep] = useState<Step>("date");
   const [slots, setSlots] = useState<Date[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [primaryTime, setPrimaryTime] = useState<Date | null>(null);
   const [alternateTime, setAlternateTime] = useState<Date | null>(null);
   const [formData, setFormData] = useState({
@@ -83,6 +68,24 @@ export function BookingFlow() {
     }
   }
 
+  // Get unique dates from slots
+  const availableDates = slots.reduce((acc: Date[], slot) => {
+    const exists = acc.some(d => isSameDay(d, slot));
+    if (!exists) acc.push(slot);
+    return acc;
+  }, []);
+
+  // Get slots for selected date
+  const slotsForSelectedDate = selectedDate
+    ? slots.filter(slot => isSameDay(slot, selectedDate))
+    : [];
+
+  function handleDateSelect(date: Date) {
+    setSelectedDate(date);
+    setPrimaryTime(null);
+    setAlternateTime(null);
+  }
+
   function handleTimeSelect(time: Date) {
     if (!primaryTime) {
       setPrimaryTime(time);
@@ -96,13 +99,11 @@ export function BookingFlow() {
     }
   }
 
-  function isSelected(time: Date): "primary" | "alternate" | false {
+  function isTimeSelected(time: Date): "primary" | "alternate" | false {
     if (primaryTime && time.getTime() === primaryTime.getTime()) return "primary";
     if (alternateTime && time.getTime() === alternateTime.getTime()) return "alternate";
     return false;
   }
-
-  const groupedSlots = groupSlotsByDay(slots);
 
   if (loading) {
     return (
@@ -116,11 +117,11 @@ export function BookingFlow() {
     <div className="w-full">
       {/* Progress indicator */}
       <div className="flex justify-center gap-2 mb-12">
-        {["times", "details", "payment", "success"].map((s, i) => (
+        {["date", "time", "details", "payment", "success"].map((s, i) => (
           <div
             key={s}
-            className={`h-1 w-16 transition-all duration-500 ${
-              ["times", "details", "payment", "success"].indexOf(step) >= i
+            className={`h-1 w-12 md:w-16 transition-all duration-500 ${
+              ["date", "time", "details", "payment", "success"].indexOf(step) >= i
                 ? "bg-white"
                 : "bg-zinc-800"
             }`}
@@ -129,21 +130,65 @@ export function BookingFlow() {
       </div>
 
       <AnimatePresence mode="wait">
-        {/* STEP 1: TIME SELECTION */}
-        {step === "times" && (
+        {/* STEP 1: DATE SELECTION */}
+        {step === "date" && (
           <motion.div
-            key="times"
+            key="date"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             className="space-y-8"
           >
-            <div className="text-center mb-12">
+            <div className="text-center mb-8">
+              <h3 className="text-3xl md:text-4xl font-black text-white mb-4">
+                Pick a Date
+              </h3>
+              <p className="text-zinc-400 text-lg">
+                Available Monday, Tuesday & Wednesday
+              </p>
+            </div>
+
+            <Calendar
+              availableDates={availableDates}
+              selectedDate={selectedDate}
+              onSelectDate={handleDateSelect}
+            />
+
+            {selectedDate && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-center"
+              >
+                <p className="text-zinc-400 mb-4">
+                  Selected: <span className="text-white font-bold">{formatDate(selectedDate)}</span>
+                </p>
+                <button
+                  onClick={() => setStep("time")}
+                  className="w-full md:w-auto px-12 py-5 text-lg font-bold uppercase tracking-wider bg-white text-black hover:bg-zinc-200 transition-all"
+                >
+                  Choose Time
+                </button>
+              </motion.div>
+            )}
+          </motion.div>
+        )}
+
+        {/* STEP 2: TIME SELECTION */}
+        {step === "time" && (
+          <motion.div
+            key="time"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="space-y-8"
+          >
+            <div className="text-center mb-8">
               <h3 className="text-3xl md:text-4xl font-black text-white mb-4">
                 Choose Two Times
               </h3>
               <p className="text-zinc-400 text-lg">
-                Select a primary and backup time that work for you
+                {selectedDate && formatDate(selectedDate)} — Select primary & backup
               </p>
             </div>
 
@@ -152,76 +197,75 @@ export function BookingFlow() {
               <div className={`p-6 border-2 transition-all ${primaryTime ? "border-white bg-white/5" : "border-zinc-800 border-dashed"}`}>
                 <p className="text-xs uppercase tracking-widest text-zinc-500 mb-2">Primary Choice</p>
                 {primaryTime ? (
-                  <div>
-                    <p className="text-2xl font-bold text-white">{formatSlot(primaryTime).time}</p>
-                    <p className="text-zinc-400">{formatSlot(primaryTime).formatted}</p>
-                  </div>
+                  <p className="text-2xl font-bold text-white">{formatTime(primaryTime)}</p>
                 ) : (
-                  <p className="text-zinc-600 text-lg">Select from below</p>
+                  <p className="text-zinc-600 text-lg">Select below</p>
                 )}
               </div>
               <div className={`p-6 border-2 transition-all ${alternateTime ? "border-white bg-white/5" : "border-zinc-800 border-dashed"}`}>
                 <p className="text-xs uppercase tracking-widest text-zinc-500 mb-2">Backup Choice</p>
                 {alternateTime ? (
-                  <div>
-                    <p className="text-2xl font-bold text-white">{formatSlot(alternateTime).time}</p>
-                    <p className="text-zinc-400">{formatSlot(alternateTime).formatted}</p>
-                  </div>
+                  <p className="text-2xl font-bold text-white">{formatTime(alternateTime)}</p>
                 ) : (
-                  <p className="text-zinc-600 text-lg">Select from below</p>
+                  <p className="text-zinc-600 text-lg">Select below</p>
                 )}
               </div>
             </div>
 
-            {/* Available slots by day */}
-            <div className="space-y-6 max-h-[400px] overflow-y-auto pr-2">
-              {Array.from(groupedSlots.entries()).map(([day, daySlots]) => (
-                <div key={day}>
-                  <p className="text-sm uppercase tracking-widest text-zinc-500 mb-3">{day}</p>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                    {daySlots.map((slot) => {
-                      const selected = isSelected(slot.date);
-                      return (
-                        <button
-                          key={slot.date.toISOString()}
-                          onClick={() => handleTimeSelect(slot.date)}
-                          className={`p-4 text-center transition-all border-2 ${
-                            selected === "primary"
-                              ? "bg-white text-black border-white"
-                              : selected === "alternate"
-                              ? "bg-zinc-800 text-white border-white"
-                              : "bg-transparent text-zinc-400 border-zinc-800 hover:border-zinc-600 hover:text-white"
-                          }`}
-                        >
-                          <span className="text-lg font-bold">{slot.time}</span>
-                          {selected && (
-                            <span className="block text-xs mt-1 uppercase tracking-wider">
-                              {selected === "primary" ? "Primary" : "Backup"}
-                            </span>
-                          )}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              ))}
+            {/* Time slots */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {slotsForSelectedDate.map((slot) => {
+                const selected = isTimeSelected(slot);
+                return (
+                  <motion.button
+                    key={slot.toISOString()}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => handleTimeSelect(slot)}
+                    className={`p-8 text-center transition-all border-2 ${
+                      selected === "primary"
+                        ? "bg-white text-black border-white"
+                        : selected === "alternate"
+                        ? "bg-zinc-800 text-white border-white"
+                        : "bg-transparent text-zinc-400 border-zinc-800 hover:border-zinc-600 hover:text-white"
+                    }`}
+                  >
+                    <span className="text-3xl font-black">{formatTime(slot)}</span>
+                    <span className="block text-sm mt-2 uppercase tracking-wider">
+                      {selected === "primary" ? "Primary" : selected === "alternate" ? "Backup" : "90 minutes"}
+                    </span>
+                  </motion.button>
+                );
+              })}
             </div>
 
-            <button
-              onClick={() => setStep("details")}
-              disabled={!primaryTime || !alternateTime}
-              className={`w-full py-5 text-lg font-bold uppercase tracking-wider transition-all ${
-                primaryTime && alternateTime
-                  ? "bg-white text-black hover:bg-zinc-200"
-                  : "bg-zinc-800 text-zinc-600 cursor-not-allowed"
-              }`}
-            >
-              Continue
-            </button>
+            {slotsForSelectedDate.length === 0 && (
+              <p className="text-center text-zinc-500">No times available for this date</p>
+            )}
+
+            <div className="flex gap-4 pt-4">
+              <button
+                onClick={() => setStep("date")}
+                className="px-8 py-5 text-lg font-bold uppercase tracking-wider text-zinc-400 border-2 border-zinc-800 hover:border-zinc-600 transition-all"
+              >
+                Back
+              </button>
+              <button
+                onClick={() => setStep("details")}
+                disabled={!primaryTime || !alternateTime}
+                className={`flex-1 py-5 text-lg font-bold uppercase tracking-wider transition-all ${
+                  primaryTime && alternateTime
+                    ? "bg-white text-black hover:bg-zinc-200"
+                    : "bg-zinc-800 text-zinc-600 cursor-not-allowed"
+                }`}
+              >
+                Continue
+              </button>
+            </div>
           </motion.div>
         )}
 
-        {/* STEP 2: DETAILS */}
+        {/* STEP 3: DETAILS */}
         {step === "details" && (
           <motion.div
             key="details"
@@ -230,12 +274,12 @@ export function BookingFlow() {
             exit={{ opacity: 0, y: -20 }}
             className="space-y-8"
           >
-            <div className="text-center mb-12">
+            <div className="text-center mb-8">
               <h3 className="text-3xl md:text-4xl font-black text-white mb-4">
                 Tell Me About Yourself
               </h3>
               <p className="text-zinc-400 text-lg">
-                A little context helps me prepare for our conversation
+                A little context helps me prepare
               </p>
             </div>
 
@@ -295,7 +339,7 @@ export function BookingFlow() {
 
             <div className="flex gap-4">
               <button
-                onClick={() => setStep("times")}
+                onClick={() => setStep("time")}
                 className="px-8 py-5 text-lg font-bold uppercase tracking-wider text-zinc-400 border-2 border-zinc-800 hover:border-zinc-600 transition-all"
               >
                 Back
@@ -315,7 +359,7 @@ export function BookingFlow() {
           </motion.div>
         )}
 
-        {/* STEP 3: PAYMENT */}
+        {/* STEP 4: PAYMENT */}
         {step === "payment" && (
           <motion.div
             key="payment"
@@ -324,7 +368,7 @@ export function BookingFlow() {
             exit={{ opacity: 0, y: -20 }}
             className="space-y-8"
           >
-            <div className="text-center mb-12">
+            <div className="text-center mb-8">
               <h3 className="text-3xl md:text-4xl font-black text-white mb-4">
                 Complete Your Booking
               </h3>
@@ -340,8 +384,14 @@ export function BookingFlow() {
                 <span className="text-2xl font-bold text-white">$199</span>
               </div>
               <div className="text-sm text-zinc-500">
-                <p className="mb-2"><strong className="text-zinc-300">Primary:</strong> {primaryTime && formatSlot(primaryTime).formatted} at {primaryTime && formatSlot(primaryTime).time}</p>
-                <p><strong className="text-zinc-300">Backup:</strong> {alternateTime && formatSlot(alternateTime).formatted} at {alternateTime && formatSlot(alternateTime).time}</p>
+                <p className="mb-2">
+                  <strong className="text-zinc-300">Primary:</strong>{" "}
+                  {primaryTime && `${formatDate(primaryTime)} at ${formatTime(primaryTime)}`}
+                </p>
+                <p>
+                  <strong className="text-zinc-300">Backup:</strong>{" "}
+                  {alternateTime && `${formatDate(alternateTime)} at ${formatTime(alternateTime)}`}
+                </p>
               </div>
             </div>
 
@@ -359,7 +409,7 @@ export function BookingFlow() {
           </motion.div>
         )}
 
-        {/* STEP 4: SUCCESS */}
+        {/* STEP 5: SUCCESS */}
         {step === "success" && (
           <motion.div
             key="success"
@@ -508,7 +558,6 @@ function PaymentForm(props: PaymentFormProps) {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
 
   useEffect(() => {
-    // Create a setup intent to collect payment method
     fetch("/api/stripe/setup", { method: "POST" })
       .then(res => res.json())
       .then(data => setClientSecret(data.clientSecret))

@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic';
 
 // Generate available slots for the next 4 weeks
 // Monday, Tuesday, Wednesday only
-// 11am - 3pm (4 slots per day: 11am, 12pm, 1pm, 2pm)
+// 90-minute slots: 11am and 1:30pm (Central Time)
 
 function getAvailableSlots(): Date[] {
   const slots: Date[] = [];
@@ -22,17 +22,16 @@ function getAvailableSlots(): Date[] {
     
     // Monday = 1, Tuesday = 2, Wednesday = 3
     if (dayOfWeek >= 1 && dayOfWeek <= 3) {
-      // Add slots for 11am, 12pm, 1pm, 2pm, 3pm (Central Time / Mexico City = UTC-6)
-      // 11am CST = 17 UTC, 12pm = 18 UTC, 1pm = 19 UTC, 2pm = 20 UTC, 3pm = 21 UTC
-      for (const hour of [17, 18, 19, 20, 21]) {
-        const slot = new Date(current);
-        slot.setUTCHours(hour, 0, 0, 0);
-        
-        // Only add future slots
-        if (slot > now) {
-          slots.push(slot);
-        }
-      }
+      // 90-minute slots (Central Time = UTC-6):
+      // 11:00am CST = 17:00 UTC
+      // 1:30pm CST = 19:30 UTC
+      const slot1 = new Date(current);
+      slot1.setUTCHours(17, 0, 0, 0);
+      if (slot1 > now) slots.push(slot1);
+      
+      const slot2 = new Date(current);
+      slot2.setUTCHours(19, 30, 0, 0);
+      if (slot2 > now) slots.push(slot2);
     }
     
     current.setDate(current.getDate() + 1);
