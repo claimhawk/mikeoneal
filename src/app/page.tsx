@@ -9,13 +9,13 @@ export default function Home() {
       <Header />
       
       {/* 1. HERO */}
-      <section id="hero" className="relative min-h-screen flex items-end">
-        <div className="absolute inset-0">
+      <section id="hero" className="relative min-h-screen w-screen flex items-end -ml-[calc((100vw-100%)/2)]">
+        <div className="absolute inset-0 w-screen">
           <Image
             src="/images/mikeoneal-portrait-studio.png"
             alt="Michael ONeal"
             fill
-            className="object-cover object-top"
+            className="object-cover object-[center_20%]"
             priority
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
