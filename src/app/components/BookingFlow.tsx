@@ -99,7 +99,6 @@ export function BookingFlow() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
     notes: "",
   });
   const [error, setError] = useState<string | null>(null);
@@ -298,7 +297,7 @@ export function BookingFlow() {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className="w-full bg-transparent border-2 border-zinc-800 p-4 text-white text-lg focus:border-white focus:outline-none transition-colors"
-                  placeholder="John Doe"
+                  placeholder="Your full name"
                 />
               </div>
 
@@ -311,20 +310,7 @@ export function BookingFlow() {
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="w-full bg-transparent border-2 border-zinc-800 p-4 text-white text-lg focus:border-white focus:outline-none transition-colors"
-                  placeholder="john@company.com"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2">
-                  Phone (Optional)
-                </label>
-                <input
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full bg-transparent border-2 border-zinc-800 p-4 text-white text-lg focus:border-white focus:outline-none transition-colors"
-                  placeholder="+1 (555) 000-0000"
+                  placeholder="you@company.com"
                 />
               </div>
 
@@ -450,7 +436,7 @@ export function BookingFlow() {
 }
 
 interface PaymentFormProps {
-  formData: { name: string; email: string; phone: string; notes: string };
+  formData: { name: string; email: string; notes: string };
   selectedTime: Date;
   onSuccess: (manageToken: string) => void;
   onBack: () => void;
