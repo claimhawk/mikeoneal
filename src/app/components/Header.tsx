@@ -56,7 +56,7 @@ export function Header() {
             className="font-black text-white tracking-tighter transition-all duration-300"
             style={{ fontSize: scrolled ? "1.25rem" : "1.5rem" }}
           >
-            MO
+            Michael
           </a>
 
           {/* Nav Links */}
