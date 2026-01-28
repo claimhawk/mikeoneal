@@ -22,8 +22,11 @@ export async function POST() {
       );
     }
 
-    // Create fresh Stripe instance per request
-    const stripe = new Stripe(secretKey);
+    // Create fresh Stripe instance per request with longer timeout
+    const stripe = new Stripe(secretKey, {
+      timeout: 30000, // 30 seconds
+      maxNetworkRetries: 3,
+    });
 
     // Create a PaymentIntent for the consultation
     const paymentIntent = await stripe.paymentIntents.create({
