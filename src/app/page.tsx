@@ -133,7 +133,43 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. Tylt - Digital Labor */}
+      {/* 5. First Principles & Diffusion Development */}
+      <section className="py-24 md:py-32 border-t border-zinc-900">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          <div className="grid lg:grid-cols-2 gap-16">
+            <div>
+              <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4">Methodology</p>
+              <h2 className="text-5xl md:text-6xl font-black tracking-tighter text-white mb-8 leading-[0.9]">
+                FIRST<br />PRINCIPLES
+              </h2>
+              <p className="text-lg text-zinc-400 leading-relaxed mb-6">
+                I don&apos;t reinvent wheels. I decompose problems, find the prior art — papers, projects, 
+                academic and business trial-and-error — then synthesize and build on that foundation.
+              </p>
+              <p className="text-zinc-500 leading-relaxed">
+                Adopt early, verify fast. By the time something becomes &quot;best practice,&quot; 
+                I&apos;ve already moved on to what&apos;s next.
+              </p>
+            </div>
+            <div>
+              <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4">Process</p>
+              <h2 className="text-5xl md:text-6xl font-black tracking-tighter text-white mb-8 leading-[0.9]">
+                DIFFUSION<br />DEVELOPMENT
+              </h2>
+              <p className="text-lg text-zinc-400 leading-relaxed mb-6">
+                Start with noise — rough structure of the entire system. Progressively refine everything 
+                concurrently until the final form emerges. Like diffusion models generate images, but for software.
+              </p>
+              <p className="text-zinc-500 leading-relaxed">
+                No &quot;finish module A, then start B.&quot; Everything exists in rough form from the start. 
+                Each pass increases fidelity across the entire system.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Tylt - Digital Labor */}
       <section className="relative min-h-[80vh] flex items-center">
         <div className="absolute inset-0">
           <Image
