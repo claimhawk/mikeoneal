@@ -28,13 +28,11 @@ export async function POST() {
       maxNetworkRetries: 3,
     });
 
-    // Create a PaymentIntent for the consultation
+    // Create a PaymentIntent for the consultation - card only
     const paymentIntent = await stripe.paymentIntents.create({
       amount: CONSULTATION_PRICE,
       currency: 'usd',
-      automatic_payment_methods: {
-        enabled: true,
-      },
+      payment_method_types: ['card'],
     });
 
     return NextResponse.json({ clientSecret: paymentIntent.client_secret });
