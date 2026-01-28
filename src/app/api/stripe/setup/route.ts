@@ -7,8 +7,9 @@ export async function POST() {
   try {
     const stripe = getStripe();
     if (!stripe) {
+      const hasKey = !!process.env.STRIPE_SECRET_KEY;
       return NextResponse.json(
-        { error: 'Stripe not configured' },
+        { error: 'Stripe not configured', hasKey },
         { status: 500 }
       );
     }
@@ -25,8 +26,9 @@ export async function POST() {
     return NextResponse.json({ clientSecret: paymentIntent.client_secret });
   } catch (error) {
     console.error('Error creating payment intent:', error);
+    const message = error instanceof Error ? error.message : 'Unknown error';
     return NextResponse.json(
-      { error: 'Failed to initialize payment' },
+      { error: 'Failed to initialize payment', details: message },
       { status: 500 }
     );
   }
