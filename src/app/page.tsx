@@ -45,7 +45,7 @@ export default function Home() {
       </section>
 
       {/* 3. MACHINE LEARNING */}
-      <section className="relative min-h-[80vh] flex items-center">
+      <section className="relative min-h-screen flex items-center">
         <div className="absolute inset-0">
           <Image
             src="/images/mikeoneal-mag11-rooftop.png"
@@ -89,7 +89,7 @@ export default function Home() {
       </section>
 
       {/* 5. SYSTEMS BUILDING */}
-      <section className="relative min-h-[80vh] flex items-center">
+      <section className="relative min-h-screen flex items-center">
         <div className="absolute inset-0">
           <Image
             src="/images/mikeoneal-portrait-studio-34body.png"
@@ -117,7 +117,7 @@ export default function Home() {
       </section>
 
       {/* 6. WORK WITH ME */}
-      <section className="relative min-h-[80vh] flex items-center">
+      <section className="relative min-h-screen flex items-center">
         <div className="absolute inset-0">
           <Image
             src="/images/mikeoneal-portrait-office-v2.png"
