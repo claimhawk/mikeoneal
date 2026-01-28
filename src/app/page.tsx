@@ -15,7 +15,7 @@ export default function Home() {
             src="/images/mikeoneal-portrait-studio.png"
             alt="Michael ONeal"
             fill
-            className="object-cover object-[center_20%]"
+            className="object-cover object-[center_35%]"
             priority
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
