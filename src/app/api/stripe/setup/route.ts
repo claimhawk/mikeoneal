@@ -13,6 +13,14 @@ export async function POST() {
         { status: 500 }
       );
     }
+    
+    // Debug: check key format
+    if (!secretKey.startsWith('sk_')) {
+      return NextResponse.json(
+        { error: 'Invalid key format', keyPrefix: secretKey.substring(0, 10) },
+        { status: 500 }
+      );
+    }
 
     // Create fresh Stripe instance per request
     const stripe = new Stripe(secretKey);
