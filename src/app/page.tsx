@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { AnimatedSection } from "./components/AnimatedSection";
 
 export default function Home() {
   return (
@@ -29,7 +30,7 @@ export default function Home() {
       </section>
 
       {/* 2. CONTRARIAN & ENGINEER */}
-      <section className="min-h-screen flex items-center border-t border-zinc-900">
+      <AnimatedSection className="min-h-screen flex items-center border-t border-zinc-900">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20">
           <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4">Contrarian & Engineer</p>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white mb-8 leading-[0.9]">
@@ -42,7 +43,7 @@ export default function Home() {
             about being normal.
           </p>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* 3. MACHINE LEARNING */}
       <section className="relative min-h-screen flex items-center">
