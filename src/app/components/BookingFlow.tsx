@@ -118,11 +118,20 @@ export function BookingFlow() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    interest: "",
     notes: "",
   });
   const [emailTouched, setEmailTouched] = useState(false);
   const [notesTouched, setNotesTouched] = useState(false);
   const MIN_NOTES_LENGTH = 120;
+  
+  const INTEREST_OPTIONS = [
+    { value: "", label: "Select an option..." },
+    { value: "spec", label: "I want you to spec out a project" },
+    { value: "build", label: "I want you to build something" },
+    { value: "train", label: "I want you to train me or my team" },
+    { value: "other", label: "Tell me more" },
+  ];
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [manageToken, setManageToken] = useState<string | null>(null);
@@ -348,33 +357,53 @@ export function BookingFlow() {
 
               <div>
                 <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2">
-                  What&apos;s on your mind? *
+                  What are you looking for? *
                 </label>
-                <textarea
-                  value={formData.notes}
-                  onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                  onBlur={() => setNotesTouched(true)}
-                  rows={5}
-                  className={`w-full bg-transparent border-2 p-4 text-white text-lg focus:outline-none transition-colors resize-none ${
-                    notesTouched && formData.notes.length < MIN_NOTES_LENGTH
-                      ? "border-red-500 focus:border-red-500"
-                      : notesTouched && formData.notes.length >= MIN_NOTES_LENGTH
-                      ? "border-green-500 focus:border-green-500"
-                      : "border-zinc-800 focus:border-white"
-                  }`}
-                  placeholder="Tell me about your business, challenges, or what you're hoping to achieve..."
-                />
-                <div className="flex justify-between mt-2">
-                  {notesTouched && formData.notes.length < MIN_NOTES_LENGTH ? (
-                    <p className="text-red-500 text-sm">Please provide more detail ({MIN_NOTES_LENGTH - formData.notes.length} more characters)</p>
-                  ) : (
-                    <span />
-                  )}
-                  <p className={`text-sm ${formData.notes.length >= MIN_NOTES_LENGTH ? "text-green-500" : "text-zinc-500"}`}>
-                    {formData.notes.length}/{MIN_NOTES_LENGTH}
-                  </p>
-                </div>
+                <select
+                  value={formData.interest}
+                  onChange={(e) => setFormData({ ...formData, interest: e.target.value, notes: e.target.value !== "other" ? "" : formData.notes })}
+                  className="w-full bg-transparent border-2 border-zinc-800 p-4 text-white text-lg focus:border-white focus:outline-none transition-colors appearance-none cursor-pointer"
+                  style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23666'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 1rem center', backgroundSize: '1.5rem' }}
+                >
+                  {INTEREST_OPTIONS.map(opt => (
+                    <option key={opt.value} value={opt.value} className="bg-zinc-900 text-white">
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
               </div>
+
+              {formData.interest === "other" && (
+                <div>
+                  <label className="block text-xs uppercase tracking-widest text-zinc-500 mb-2">
+                    Tell me more *
+                  </label>
+                  <textarea
+                    value={formData.notes}
+                    onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                    onBlur={() => setNotesTouched(true)}
+                    rows={5}
+                    className={`w-full bg-transparent border-2 p-4 text-white text-lg focus:outline-none transition-colors resize-none ${
+                      notesTouched && formData.notes.length < MIN_NOTES_LENGTH
+                        ? "border-red-500 focus:border-red-500"
+                        : notesTouched && formData.notes.length >= MIN_NOTES_LENGTH
+                        ? "border-green-500 focus:border-green-500"
+                        : "border-zinc-800 focus:border-white"
+                    }`}
+                    placeholder="Tell me about your business, challenges, or what you're hoping to achieve..."
+                  />
+                  <div className="flex justify-between mt-2">
+                    {notesTouched && formData.notes.length < MIN_NOTES_LENGTH ? (
+                      <p className="text-red-500 text-sm">Please provide more detail ({MIN_NOTES_LENGTH - formData.notes.length} more characters)</p>
+                    ) : (
+                      <span />
+                    )}
+                    <p className={`text-sm ${formData.notes.length >= MIN_NOTES_LENGTH ? "text-green-500" : "text-zinc-500"}`}>
+                      {formData.notes.length}/{MIN_NOTES_LENGTH}
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="flex gap-4">
@@ -387,14 +416,18 @@ export function BookingFlow() {
               <button
                 onClick={() => {
                   setEmailTouched(true);
-                  setNotesTouched(true);
-                  if (formData.name && isValidEmail(formData.email) && formData.notes.length >= MIN_NOTES_LENGTH) {
+                  if (formData.interest === "other") setNotesTouched(true);
+                  const isValid = formData.name && isValidEmail(formData.email) && formData.interest && 
+                    (formData.interest !== "other" || formData.notes.length >= MIN_NOTES_LENGTH);
+                  if (isValid) {
                     setStep("payment");
                   }
                 }}
-                disabled={!formData.name || !isValidEmail(formData.email) || formData.notes.length < MIN_NOTES_LENGTH}
+                disabled={!formData.name || !isValidEmail(formData.email) || !formData.interest || 
+                  (formData.interest === "other" && formData.notes.length < MIN_NOTES_LENGTH)}
                 className={`flex-1 py-5 text-lg font-bold uppercase tracking-wider transition-all ${
-                  formData.name && isValidEmail(formData.email) && formData.notes.length >= MIN_NOTES_LENGTH
+                  formData.name && isValidEmail(formData.email) && formData.interest &&
+                  (formData.interest !== "other" || formData.notes.length >= MIN_NOTES_LENGTH)
                     ? "bg-white text-black hover:bg-zinc-200"
                     : "bg-zinc-800 text-zinc-600 cursor-not-allowed"
                 }`}
@@ -491,7 +524,7 @@ export function BookingFlow() {
 }
 
 interface PaymentFormProps {
-  formData: { name: string; email: string; notes: string };
+  formData: { name: string; email: string; interest: string; notes: string };
   selectedTime: Date;
   onSuccess: (manageToken: string) => void;
   onBack: () => void;
