@@ -1,18 +1,21 @@
 import { NextResponse } from 'next/server';
-import { getStripe, CONSULTATION_PRICE } from '@/lib/stripe';
+import Stripe from 'stripe';
+import { CONSULTATION_PRICE } from '@/lib/stripe';
 
 export const dynamic = 'force-dynamic';
 
 export async function POST() {
   try {
-    const stripe = getStripe();
-    if (!stripe) {
-      const hasKey = !!process.env.STRIPE_SECRET_KEY;
+    const secretKey = process.env.STRIPE_SECRET_KEY;
+    if (!secretKey) {
       return NextResponse.json(
-        { error: 'Stripe not configured', hasKey },
+        { error: 'Stripe not configured', hasKey: false },
         { status: 500 }
       );
     }
+
+    // Create fresh Stripe instance per request
+    const stripe = new Stripe(secretKey);
 
     // Create a PaymentIntent for the consultation
     const paymentIntent = await stripe.paymentIntents.create({
