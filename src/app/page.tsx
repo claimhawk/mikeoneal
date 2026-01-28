@@ -24,7 +24,7 @@ export default function Home() {
         
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 pb-20 md:pb-28">
           <h1 className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter text-white mb-6 leading-[0.85]">
-            MICHAEL<br />ONEAL
+            DEVELOPER<br />WIZARD
           </h1>
           <p className="text-xl md:text-2xl lg:text-3xl text-zinc-200 font-light max-w-2xl leading-relaxed">
             The world has changed. Digital labor is here to stay, and nothing will ever be the same.
