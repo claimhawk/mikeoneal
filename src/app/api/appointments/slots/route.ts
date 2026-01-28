@@ -6,7 +6,8 @@ export const dynamic = 'force-dynamic';
 
 // Generate available slots for the next 4 weeks
 // Monday, Tuesday, Wednesday only
-// 90-minute slots: 11am and 1:30pm (Central Time)
+// Hour blocks: 11am, 12pm, 1pm (Central Time) - 90 min meetings
+// Only 1 booking allowed per day
 
 function getAvailableSlots(): Date[] {
   const slots: Date[] = [];
@@ -22,16 +23,15 @@ function getAvailableSlots(): Date[] {
     
     // Monday = 1, Tuesday = 2, Wednesday = 3
     if (dayOfWeek >= 1 && dayOfWeek <= 3) {
-      // 90-minute slots (Central Time = UTC-6):
+      // Hour blocks (Central Time = UTC-6):
       // 11:00am CST = 17:00 UTC
-      // 1:30pm CST = 19:30 UTC
-      const slot1 = new Date(current);
-      slot1.setUTCHours(17, 0, 0, 0);
-      if (slot1 > now) slots.push(slot1);
-      
-      const slot2 = new Date(current);
-      slot2.setUTCHours(19, 30, 0, 0);
-      if (slot2 > now) slots.push(slot2);
+      // 12:00pm CST = 18:00 UTC
+      // 1:00pm CST = 19:00 UTC
+      for (const utcHour of [17, 18, 19]) {
+        const slot = new Date(current);
+        slot.setUTCHours(utcHour, 0, 0, 0);
+        if (slot > now) slots.push(slot);
+      }
     }
     
     current.setDate(current.getDate() + 1);
@@ -40,27 +40,33 @@ function getAvailableSlots(): Date[] {
   return slots;
 }
 
+// Get date string for comparison (YYYY-MM-DD in UTC)
+function getDateKey(date: Date): string {
+  return date.toISOString().split('T')[0];
+}
+
 export async function GET() {
   try {
     await connectToDatabase();
     
-    // Get all booked times
+    // Get all booked appointments
     const bookedAppointments = await Appointment.find({
       status: { $in: ['pending', 'confirmed'] },
       scheduledTime: { $gte: new Date() }
     }).select('scheduledTime');
     
-    const bookedTimes = new Set<string>();
+    // Get dates that are fully booked (1 booking = day is full)
+    const bookedDates = new Set<string>();
     bookedAppointments.forEach(apt => {
-      bookedTimes.add(apt.scheduledTime.toISOString());
+      bookedDates.add(getDateKey(apt.scheduledTime));
     });
     
     // Get all possible slots
     const allSlots = getAvailableSlots();
     
-    // Filter out booked slots
+    // Filter out slots on days that already have a booking
     const availableSlots = allSlots.filter(
-      slot => !bookedTimes.has(slot.toISOString())
+      slot => !bookedDates.has(getDateKey(slot))
     );
     
     return NextResponse.json({ slots: availableSlots });
