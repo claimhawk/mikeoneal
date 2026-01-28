@@ -15,6 +15,47 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 
 type Step = "date" | "time" | "details" | "payment" | "success";
 
+// FOMO: Get or create a persistent seed for this user
+function getFomoSeed(): number {
+  if (typeof window === 'undefined') return 0;
+  const cookieName = 'fomo_seed';
+  const existing = document.cookie.split('; ').find(c => c.startsWith(cookieName + '='));
+  if (existing) {
+    return parseInt(existing.split('=')[1], 10);
+  }
+  const seed = Math.floor(Math.random() * 1000000);
+  document.cookie = `${cookieName}=${seed}; path=/; max-age=${60 * 60 * 24 * 365}`;
+  return seed;
+}
+
+// Seeded random - consistent for same seed + day combo
+function seededRandom(seed: number, day: number): number {
+  const x = Math.sin(seed + day * 9999) * 10000;
+  return x - Math.floor(x);
+}
+
+// Filter slots to hide ~35% of days based on user's seed
+function applyFomoFilter(slots: Date[], seed: number): Date[] {
+  // Group by day
+  const dayMap = new Map<string, Date[]>();
+  slots.forEach(slot => {
+    const key = slot.toISOString().split('T')[0];
+    if (!dayMap.has(key)) dayMap.set(key, []);
+    dayMap.get(key)!.push(slot);
+  });
+  
+  // Filter out ~35% of days
+  const filtered: Date[] = [];
+  Array.from(dayMap.entries()).forEach(([dayKey, daySlots], idx) => {
+    const rand = seededRandom(seed, idx);
+    if (rand > 0.35) { // Keep 65%
+      filtered.push(...daySlots);
+    }
+  });
+  
+  return filtered;
+}
+
 function formatTime(date: Date): string {
   return date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
 }
@@ -41,6 +82,7 @@ export function BookingFlow() {
   const [loading, setLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<Date | null>(null);
+  const [fomoSeed, setFomoSeed] = useState<number>(0);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -52,6 +94,7 @@ export function BookingFlow() {
   const [manageToken, setManageToken] = useState<string | null>(null);
 
   useEffect(() => {
+    setFomoSeed(getFomoSeed());
     fetchSlots();
   }, []);
 
@@ -59,7 +102,10 @@ export function BookingFlow() {
     try {
       const res = await fetch("/api/appointments/slots");
       const data = await res.json();
-      setSlots(data.slots.map((s: string) => new Date(s)));
+      const allSlots = data.slots.map((s: string) => new Date(s));
+      // Apply FOMO filter
+      const seed = getFomoSeed();
+      setSlots(applyFomoFilter(allSlots, seed));
     } catch {
       setError("Failed to load available times");
     } finally {
@@ -82,6 +128,7 @@ export function BookingFlow() {
   function handleDateSelect(date: Date) {
     setSelectedDate(date);
     setSelectedTime(null);
+    setStep("time"); // Auto-advance to time selection
   }
 
   function handleTimeSelect(time: Date) {
@@ -140,24 +187,6 @@ export function BookingFlow() {
               selectedDate={selectedDate}
               onSelectDate={handleDateSelect}
             />
-
-            {selectedDate && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-center"
-              >
-                <p className="text-zinc-400 mb-4">
-                  Selected: <span className="text-white font-bold">{formatDate(selectedDate)}</span>
-                </p>
-                <button
-                  onClick={() => setStep("time")}
-                  className="w-full md:w-auto px-12 py-5 text-lg font-bold uppercase tracking-wider bg-white text-black hover:bg-zinc-200 transition-all"
-                >
-                  Choose Time
-                </button>
-              </motion.div>
-            )}
           </motion.div>
         )}
 
