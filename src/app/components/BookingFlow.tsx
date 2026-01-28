@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { loadStripe } from "@stripe/stripe-js";
 import {
   Elements,
-  PaymentElement,
+  CardElement,
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
@@ -547,8 +547,16 @@ function PaymentFormInner({ formData, selectedTime, onSuccess, onBack, error, se
     setError(null);
     
     try {
+      const cardElement = elements.getElement(CardElement);
+      if (!cardElement) {
+        setError("Card element not found");
+        setSubmitting(false);
+        return;
+      }
+      
       const { error: submitError, paymentMethod } = await stripe.createPaymentMethod({
-        elements,
+        type: 'card',
+        card: cardElement,
       });
       
       if (submitError) {
@@ -585,9 +593,17 @@ function PaymentFormInner({ formData, selectedTime, onSuccess, onBack, error, se
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="bg-zinc-900 p-6">
-        <PaymentElement 
+        <CardElement 
           options={{
-            layout: "tabs",
+            style: {
+              base: {
+                fontSize: '16px',
+                color: '#fff',
+                '::placeholder': {
+                  color: '#71717a',
+                },
+              },
+            },
           }}
         />
       </div>
