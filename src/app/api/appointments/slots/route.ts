@@ -22,10 +22,11 @@ function getAvailableSlots(): Date[] {
     
     // Monday = 1, Tuesday = 2, Wednesday = 3
     if (dayOfWeek >= 1 && dayOfWeek <= 3) {
-      // Add slots for 11am, 12pm, 1pm, 2pm
-      for (const hour of [11, 12, 13, 14]) {
+      // Add slots for 11am, 12pm, 1pm, 2pm, 3pm (Central Time / Mexico City = UTC-6)
+      // 11am CST = 17 UTC, 12pm = 18 UTC, 1pm = 19 UTC, 2pm = 20 UTC, 3pm = 21 UTC
+      for (const hour of [17, 18, 19, 20, 21]) {
         const slot = new Date(current);
-        slot.setHours(hour, 0, 0, 0);
+        slot.setUTCHours(hour, 0, 0, 0);
         
         // Only add future slots
         if (slot > now) {
