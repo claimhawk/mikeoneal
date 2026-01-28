@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { AnimatedSection } from "./components/AnimatedSection";
 import { Header } from "./components/Header";
+import { BookingFlow } from "./components/BookingFlow";
 
 export default function Home() {
   return (
@@ -147,39 +148,20 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 7. CTA */}
-      <section id="contact" className="min-h-screen flex items-center bg-zinc-950">
-        <div className="max-w-5xl mx-auto px-6 lg:px-12">
-          <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4 text-center">Let&apos;s Talk</p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white mb-8 leading-[0.9] text-center">
-            Want to get specific? Let&apos;s have a conversation about your goals.
-          </h2>
-          <p className="text-lg md:text-xl text-zinc-400 leading-relaxed text-center mb-8 max-w-3xl mx-auto">
-            I can show you in real time, how I work. I will extract and abstract while you sit on my couch 
-            and tell me all your business based problems. I&apos;ll be drawing on my whiteboard, and kicking off 
-            multiple digital agents to start laying groundwork, doing research, and doing the operational 
-            work in the background while I engage with the problem space in the foreground.
-          </p>
-          <p className="text-xl text-zinc-200 text-center mb-10">
-            By the end of our conversation we will be ready to take the first steps to the new world together.
-          </p>
-          
-          {/* Pricing */}
-          <div className="bg-black/50 border border-zinc-800 p-8 md:p-12 mb-10 max-w-2xl mx-auto">
-            <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-2 text-center">Initial Consultation</p>
-            <p className="text-5xl md:text-6xl font-black text-white text-center mb-4">$199</p>
-            <p className="text-lg text-zinc-400 leading-relaxed text-center">
-              Up to 90 minutes of my time. Once our session ends, you&apos;ll receive a copy of all materials, 
-              progress, and video from our time together. During our initial consultation we will discuss 
-              my rates as they pertain to your specific needs.
+      {/* 7. CTA / BOOKING */}
+      <section id="contact" className="min-h-screen py-20 bg-zinc-950">
+        <div className="max-w-4xl mx-auto px-6 lg:px-12">
+          <div className="text-center mb-16">
+            <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4">Let&apos;s Talk</p>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white mb-8 leading-[0.9]">
+              Book Your Consultation
+            </h2>
+            <p className="text-lg md:text-xl text-zinc-400 leading-relaxed max-w-2xl mx-auto">
+              90 minutes. $199. All materials, notes, and video included.
             </p>
           </div>
           
-          <div className="flex justify-center">
-            <a href="https://calendly.com/mikeoneal" className="inline-flex items-center justify-center px-12 py-5 text-lg font-bold uppercase tracking-wider text-black bg-white hover:bg-zinc-200 transition-all">
-              Schedule a Meeting
-            </a>
-          </div>
+          <BookingFlow />
         </div>
       </section>
 
