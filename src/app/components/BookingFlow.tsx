@@ -73,6 +73,25 @@ function formatTime(date: Date): string {
   return date.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
 }
 
+// Strict email validation
+function isValidEmail(email: string): boolean {
+  if (!email) return false;
+  // Must have @ and domain with TLD
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  if (!emailRegex.test(email)) return false;
+  // Additional checks
+  const [local, domain] = email.split('@');
+  if (!local || !domain) return false;
+  if (local.length > 64 || domain.length > 255) return false;
+  // No consecutive dots
+  if (email.includes('..')) return false;
+  // Domain must have valid TLD
+  const domainParts = domain.split('.');
+  const tld = domainParts[domainParts.length - 1];
+  if (tld.length < 2) return false;
+  return true;
+}
+
 function formatDate(date: Date): string {
   return date.toLocaleDateString("en-US", {
     weekday: "long",
@@ -101,6 +120,7 @@ export function BookingFlow() {
     email: "",
     notes: "",
   });
+  const [emailTouched, setEmailTouched] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [manageToken, setManageToken] = useState<string | null>(null);
@@ -309,9 +329,19 @@ export function BookingFlow() {
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full bg-transparent border-2 border-zinc-800 p-4 text-white text-lg focus:border-white focus:outline-none transition-colors"
+                  onBlur={() => setEmailTouched(true)}
+                  className={`w-full bg-transparent border-2 p-4 text-white text-lg focus:outline-none transition-colors ${
+                    emailTouched && formData.email && !isValidEmail(formData.email)
+                      ? "border-red-500 focus:border-red-500"
+                      : emailTouched && isValidEmail(formData.email)
+                      ? "border-green-500 focus:border-green-500"
+                      : "border-zinc-800 focus:border-white"
+                  }`}
                   placeholder="you@company.com"
                 />
+                {emailTouched && formData.email && !isValidEmail(formData.email) && (
+                  <p className="text-red-500 text-sm mt-2">Please enter a valid email address</p>
+                )}
               </div>
 
               <div>
@@ -336,10 +366,15 @@ export function BookingFlow() {
                 Back
               </button>
               <button
-                onClick={() => setStep("payment")}
-                disabled={!formData.name || !formData.email}
+                onClick={() => {
+                  setEmailTouched(true);
+                  if (formData.name && isValidEmail(formData.email)) {
+                    setStep("payment");
+                  }
+                }}
+                disabled={!formData.name || !isValidEmail(formData.email)}
                 className={`flex-1 py-5 text-lg font-bold uppercase tracking-wider transition-all ${
-                  formData.name && formData.email
+                  formData.name && isValidEmail(formData.email)
                     ? "bg-white text-black hover:bg-zinc-200"
                     : "bg-zinc-800 text-zinc-600 cursor-not-allowed"
                 }`}
