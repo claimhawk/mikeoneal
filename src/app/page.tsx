@@ -29,8 +29,8 @@ export default function Home() {
       </section>
 
       {/* 2. CONTRARIAN & ENGINEER */}
-      <section className="py-32 md:py-48 border-t border-zinc-900">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <section className="min-h-screen flex items-center border-t border-zinc-900">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20">
           <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4">Contrarian & Engineer</p>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white mb-8 leading-[0.9]">
             When others build software, I build software that builds software
@@ -73,8 +73,8 @@ export default function Home() {
       </section>
 
       {/* 4. PROGRAMMING JOURNEY */}
-      <section className="py-32 md:py-48 border-t border-zinc-900">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <section className="min-h-screen flex items-center border-t border-zinc-900">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20">
           <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4">The Journey</p>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white mb-8 leading-[0.9]">
             From C to LISP and from LISP to Python, Ruby, and of course, TypeScript
@@ -145,7 +145,7 @@ export default function Home() {
       </section>
 
       {/* 7. CTA */}
-      <section className="py-32 md:py-48 bg-zinc-950">
+      <section className="min-h-screen flex items-center bg-zinc-950">
         <div className="max-w-5xl mx-auto px-6 lg:px-12">
           <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4 text-center">Let&apos;s Talk</p>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white mb-8 leading-[0.9] text-center">
