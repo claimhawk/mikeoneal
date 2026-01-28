@@ -163,6 +163,18 @@ export default function Home() {
           <p className="text-xl text-zinc-200 text-center mb-10">
             By the end of our conversation we will be ready to take the first steps to the new world together.
           </p>
+          
+          {/* Pricing */}
+          <div className="bg-black/50 border border-zinc-800 p-8 md:p-12 mb-10 max-w-2xl mx-auto">
+            <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-2 text-center">Initial Consultation</p>
+            <p className="text-5xl md:text-6xl font-black text-white text-center mb-4">$199</p>
+            <p className="text-lg text-zinc-400 leading-relaxed text-center">
+              Up to 90 minutes of my time. Once our session ends, you&apos;ll receive a copy of all materials, 
+              progress, and video from our time together. During our initial consultation we will discuss 
+              my rates as they pertain to your specific needs.
+            </p>
+          </div>
+          
           <div className="flex justify-center">
             <a href="https://calendly.com/mikeoneal" className="inline-flex items-center justify-center px-12 py-5 text-lg font-bold uppercase tracking-wider text-black bg-white hover:bg-zinc-200 transition-all">
               Schedule a Meeting
