@@ -11,7 +11,11 @@ import {
 } from "@stripe/react-stripe-js";
 import { Calendar } from "./Calendar";
 
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+if (!publishableKey) {
+  console.error('Missing NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY environment variable');
+}
+const stripePromise = publishableKey ? loadStripe(publishableKey) : null;
 
 type Step = "date" | "time" | "details" | "payment" | "success";
 
@@ -648,6 +652,15 @@ function PaymentForm(props: PaymentFormProps) {
       .then(data => setClientSecret(data.clientSecret))
       .catch(() => props.setError("Failed to initialize payment"));
   }, []);
+
+  if (!stripePromise) {
+    return (
+      <div className="bg-red-500/10 border border-red-500/50 p-6 text-red-400 text-center">
+        <p className="font-bold mb-2">Payment System Not Configured</p>
+        <p className="text-sm">Please configure your Stripe API keys in the .env.local file.</p>
+      </div>
+    );
+  }
 
   if (!clientSecret) {
     return (

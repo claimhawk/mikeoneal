@@ -2,6 +2,22 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+### Environment Setup
+
+1. Copy the example environment file:
+```bash
+cp .env.example .env.local
+```
+
+2. Update `.env.local` with your actual credentials:
+   - **Stripe Keys**: Get these from [Stripe Dashboard](https://dashboard.stripe.com/test/apikeys)
+     - `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`: Your publishable key (starts with `pk_test_` or `pk_live_`)
+     - `STRIPE_SECRET_KEY`: Your secret key (starts with `sk_test_` or `sk_live_`)
+   - **MongoDB**: Set your MongoDB connection URI
+   - **Base URL**: Update for production deployment
+
+### Running the Development Server
+
 First, run the development server:
 
 ```bash
