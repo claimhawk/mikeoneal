@@ -79,15 +79,16 @@ export default function Home() {
       {/* 4. PROGRAMMING JOURNEY */}
       <section id="journey" className="min-h-screen flex items-center border-t border-zinc-900">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20">
-          <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4">Proven Adaptability</p>
+          <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4">True Full Stack</p>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white mb-8 leading-[0.9]">
-            Survived every tech cycle since the Dotcom boom — and thrived
+            Gen X. The last generation that knows how all of it actually works.
           </h2>
           <p className="text-lg md:text-xl text-zinc-400 leading-relaxed max-w-4xl">
-            You&apos;re hiring someone who wrote their first real app at 10 years old. Who survived the Dotcom 
-            bust, the housing crash, financial meltdowns — and just watched AI multiply their already-10x 
-            skills by another factor of 10. From C to LISP to Python to TypeScript. That&apos;s the kind of 
-            adaptability you want on your team when the landscape shifts again.
+            Systems. Desktop. Mobile. Web. DevOps. Cloud. Machine Learning. I have the whole stack at my 
+            fingertips. I grew up when you had to understand the metal — memory management, pointers, 
+            assembly. I watched every layer of abstraction get built and I know what&apos;s underneath all 
+            of them. From C to LISP to Python to TypeScript. That&apos;s not a resume — that&apos;s 
+            four decades of watching this industry reinvent itself while I stayed ahead of every wave.
           </p>
         </div>
       </section>
