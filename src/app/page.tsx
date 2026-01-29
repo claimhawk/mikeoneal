@@ -167,13 +167,8 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="py-8 border-t border-zinc-900">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 flex justify-center items-center">
           <p className="text-sm text-zinc-600 uppercase tracking-wider">© {new Date().getFullYear()} Michael ONeal</p>
-          <div className="flex gap-6">
-            <a href="mailto:mike@mikeoneal.com" className="text-sm text-zinc-500 hover:text-white transition-colors">Email</a>
-            <a href="https://github.com/mikeoneal" className="text-sm text-zinc-500 hover:text-white transition-colors">GitHub</a>
-            <a href="https://linkedin.com/in/mikeoneal" className="text-sm text-zinc-500 hover:text-white transition-colors">LinkedIn</a>
-          </div>
         </div>
       </footer>
     </div>
