@@ -158,7 +158,7 @@ export default function Home() {
               Book Your Consultation
             </h2>
             <p className="text-lg md:text-xl text-zinc-400 leading-relaxed max-w-2xl mx-auto">
-              90 minutes. $199. All materials, notes, and video included.
+              We discuss your goals in detail, and I unleash my agents on the problem space you are describing. At the end of the call you get a plan, and the initial work on any code or other artifacts we generated. You also get a copy of the video to rewatch later!
             </p>
           </div>
           
