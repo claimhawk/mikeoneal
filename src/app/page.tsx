@@ -66,10 +66,11 @@ export default function Home() {
               10 years deep in ML when most are just getting started
             </h2>
             <p className="text-lg text-zinc-300 leading-relaxed">
-              You get someone who has built and trained language, vision, speech, and action models that 
-              do everything from playing video games to replacing entire teams of human labor with digital 
-              labor. Production systems that actually shipped. Models that replaced headcount. This isn&apos;t 
-              someone who watched a tutorial — this is battle-tested ML engineering you can deploy now.
+              I&apos;ve built and trained language, vision, speech, and action models — but more importantly, 
+              I build the harnesses that turn them into digital labor. Workers that are always on, never 
+              sick, and cost a fraction of human headcount. Production systems that actually shipped and 
+              replaced entire teams. This isn&apos;t tutorial knowledge — this is a decade of automating 
+              work that humans used to do.
             </p>
           </div>
         </div>
