@@ -35,7 +35,7 @@ export default function Home() {
       {/* 2. CONTRARIAN & ENGINEER */}
       <AnimatedSection id="philosophy" className="min-h-screen flex items-center border-t border-zinc-900">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20">
-          <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4">What You&apos;re Hiring</p>
+          <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4">What You Are Getting</p>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white mb-8 leading-[0.9]">
             Someone who builds software that builds software
           </h2>
