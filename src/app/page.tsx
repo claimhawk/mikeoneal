@@ -27,7 +27,7 @@ export default function Home() {
             DEVELOPER<br />WIZARD
           </h1>
           <p className="text-xl md:text-2xl lg:text-3xl text-zinc-200 font-light max-w-2xl leading-relaxed">
-            The world has changed. Digital labor is here to stay, and nothing will ever be the same.
+            Your competition already has AI-augmented developers. Can you afford not to?
           </p>
         </div>
       </section>
@@ -35,15 +35,15 @@ export default function Home() {
       {/* 2. CONTRARIAN & ENGINEER */}
       <AnimatedSection id="philosophy" className="min-h-screen flex items-center border-t border-zinc-900">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20">
-          <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4">Contrarian & Engineer</p>
+          <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4">What You&apos;re Hiring</p>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white mb-8 leading-[0.9]">
-            When others build software, I build software that builds software
+            Someone who builds software that builds software
           </h2>
           <p className="text-lg md:text-xl text-zinc-400 leading-relaxed max-w-4xl">
-            I always seem to think in higher levels of abstraction than those around me. I can see around 
-            corners and straight to solutions, usually skipping multiple steps along the way. Working from 
-            first principles, I presume to assume less than might be considered normal. I never cared much 
-            about being normal.
+            This is a developer who operates at higher levels of abstraction than most. Someone who sees 
+            around corners and straight to solutions, skipping multiple steps along the way. Working from 
+            first principles, questioning assumptions others take for granted. You&apos;re not hiring normal — 
+            you&apos;re hiring the competitive advantage your competitors don&apos;t have yet.
           </p>
         </div>
       </AnimatedSection>
@@ -62,15 +62,15 @@ export default function Home() {
         
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 py-20">
           <div className="max-w-2xl">
-            <p className="text-sm uppercase tracking-[0.3em] text-zinc-400 mb-4">Machine Learning</p>
+            <p className="text-sm uppercase tracking-[0.3em] text-zinc-400 mb-4">Machine Learning Depth</p>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white mb-8 leading-[0.9]">
-              Machine Learning has dominated my thinking for about 10 years now
+              10 years deep in ML when most are just getting started
             </h2>
             <p className="text-lg text-zinc-300 leading-relaxed">
-              Global approximation functions have kept me up more nights than I can accurately describe to you. 
-              The idea is so powerful that it is both troubling and exciting in equal doses. I have built and 
-              trained language, vision, speech, sound effect, and action models to do everything from play 
-              video games to automating whole teams of human labor with digital labor.
+              You get someone who has built and trained language, vision, speech, and action models that 
+              do everything from playing video games to replacing entire teams of human labor with digital 
+              labor. Production systems that actually shipped. Models that replaced headcount. This isn&apos;t 
+              someone who watched a tutorial — this is battle-tested ML engineering you can deploy now.
             </p>
           </div>
         </div>
@@ -79,15 +79,15 @@ export default function Home() {
       {/* 4. PROGRAMMING JOURNEY */}
       <section id="journey" className="min-h-screen flex items-center border-t border-zinc-900">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20">
-          <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4">The Journey</p>
+          <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4">Proven Adaptability</p>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white mb-8 leading-[0.9]">
-            From C to LISP and from LISP to Python, Ruby, and of course, TypeScript
+            Survived every tech cycle since the Dotcom boom — and thrived
           </h2>
           <p className="text-lg md:text-xl text-zinc-400 leading-relaxed max-w-4xl">
-            I remember working on terminals that only output green or white on black screens. The first real 
-            app I wrote was Pong — as a 10 year old. I survived the Dotcom boom and bust, I survived the 
-            housing market crash, financial giants melting down, and I just watched 90% of my expertise and 
-            utility melt away by a general approximation function that multiplies my 10x skills by a factor of 10.
+            You&apos;re hiring someone who wrote their first real app at 10 years old. Who survived the Dotcom 
+            bust, the housing crash, financial meltdowns — and just watched AI multiply their already-10x 
+            skills by another factor of 10. From C to LISP to Python to TypeScript. That&apos;s the kind of 
+            adaptability you want on your team when the landscape shifts again.
           </p>
         </div>
       </section>
@@ -106,15 +106,15 @@ export default function Home() {
         
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 py-20 flex justify-end">
           <div className="max-w-2xl text-right">
-            <p className="text-sm uppercase tracking-[0.3em] text-zinc-400 mb-4">Systems</p>
+            <p className="text-sm uppercase tracking-[0.3em] text-zinc-400 mb-4">100x Output</p>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white mb-8 leading-[0.9]">
-              I don&apos;t write code, I build systems that build themselves
+              Not a developer who writes code — a system that ships products
             </h2>
             <p className="text-lg text-zinc-300 leading-relaxed">
-              I have multiple agents running simultaneously on multiple projects at multiple scopes. My job 
-              is the taste-maker, the mad genius, the guy that knows how to codify how to build software at 
-              incredible speeds. I am what products like Base 44 claim but cannot deliver. I am the Machine 
-              whisperer and the weaver of digital labor dreams. I take noise and shape it into shippable products.
+              You get multiple agents running simultaneously across multiple projects at multiple scopes. 
+              The taste-maker who knows how to codify software development at speeds your competitors can&apos;t 
+              match. What products like Base 44 promise but can&apos;t deliver. A machine whisperer who takes 
+              noise and shapes it into shippable products. This is how you 100x your engineering output.
             </p>
           </div>
         </div>
@@ -134,15 +134,15 @@ export default function Home() {
         
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 py-20">
           <div className="max-w-2xl">
-            <p className="text-sm uppercase tracking-[0.3em] text-zinc-400 mb-4">Work With Me</p>
+            <p className="text-sm uppercase tracking-[0.3em] text-zinc-400 mb-4">Two Ways to Engage</p>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white mb-8 leading-[0.9]">
-              I can work on your most vexing problems, or I can train your team
+              Solve your hardest problems — or train your team to work like this
             </h2>
             <p className="text-lg text-zinc-300 leading-relaxed">
-              No two companies have the same needs. You could say I work on a &quot;spectrum&quot;. I can solve the 
-              problems for you — or I can train your human labor how to implement much of what I know to 
-              supercharge their efforts and outputs. Technical, Non-technical, Labor, Service, C-Suite — 
-              Being able to unleash digital minds to supplement and enhance biologics is a win, win, win situation.
+              No two companies have the same needs. You can bring in the firepower to solve problems 
+              directly — or train your existing team to implement this approach and supercharge their 
+              output. Technical, non-technical, C-Suite — unleashing digital minds to supplement and 
+              enhance your biologics is a win across the board. The question is how fast you want to move.
             </p>
           </div>
         </div>
@@ -152,7 +152,7 @@ export default function Home() {
       <section id="contact" className="min-h-screen py-20 bg-zinc-950">
         <div className="max-w-4xl mx-auto px-6 lg:px-12">
           <div className="text-center mb-16">
-            <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4">Let&apos;s Talk</p>
+            <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4">Next Step</p>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white mb-8 leading-[0.9]">
               Book Your Consultation
             </h2>
