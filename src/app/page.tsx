@@ -27,7 +27,7 @@ export default function Home() {
             DEVELOPER<br />WIZARD
           </h1>
           <p className="text-xl md:text-2xl lg:text-3xl text-zinc-200 font-light max-w-2xl leading-relaxed">
-            Your competition already has AI-augmented developers. Can you afford not to?
+            Don&apos;t fall behind your competitors — I will upskill your existing team and supercharge their output.
           </p>
         </div>
       </section>
