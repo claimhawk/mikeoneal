@@ -109,7 +109,7 @@ export default function Home() {
           <div className="max-w-2xl text-right">
             <p className="text-sm uppercase tracking-[0.3em] text-zinc-400 mb-4">100x Output</p>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white mb-8 leading-[0.9]">
-              Not a developer who writes code — a system that ships products
+              Not just a developer who writes code — a development system that ships products
             </h2>
             <p className="text-lg text-zinc-300 leading-relaxed">
               You get multiple agents running simultaneously across multiple projects at multiple scopes. 
