@@ -40,10 +40,9 @@ export default function Home() {
             I build software that builds software. It&apos;s a meta thing.
           </h2>
           <p className="text-lg md:text-xl text-zinc-400 leading-relaxed max-w-4xl">
-            This is a developer who operates at higher levels of abstraction than most. Someone who sees 
-            around corners and straight to solutions, skipping multiple steps along the way. Working from 
-            first principles, questioning assumptions others take for granted. You&apos;re not hiring normal — 
-            you&apos;re hiring the competitive advantage your competitors don&apos;t have yet.
+            I think in systems, not features. While others are debugging code, I&apos;m automating the 
+            debugging. While others are hiring developers, I&apos;m building digital ones. I don&apos;t just 
+            solve problems — I eliminate the conditions that create them.
           </p>
         </div>
       </AnimatedSection>
