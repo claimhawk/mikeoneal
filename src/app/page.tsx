@@ -23,11 +23,11 @@ export default function Home() {
         </div>
         
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 pb-20 md:pb-28">
-          <h1 className="text-5xl md:text-8xl lg:text-9xl font-black tracking-tighter text-white mb-6 leading-[0.85]">
-            DEVELOPER<br />WIZARD
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-white mb-6 leading-[0.85]">
+            I DON&apos;T JUST<br />WRITE CODE.<br />I ARCHITECT THE SYSTEMS<br />THAT WRITE IT FOR YOU.
           </h1>
-          <p className="text-xl md:text-2xl lg:text-3xl text-zinc-200 font-light max-w-2xl leading-relaxed">
-            Don&apos;t fall behind your competitors — I will upskill your existing team and supercharge their output.
+          <p className="text-xl md:text-2xl lg:text-3xl text-zinc-200 font-light max-w-3xl leading-relaxed">
+            The era of manual coding is ending. I build the agents, the tools, and the recursive workflows that allow one developer to do the work of a department.
           </p>
         </div>
       </section>
@@ -35,19 +35,24 @@ export default function Home() {
       {/* 2. CONTRARIAN & ENGINEER */}
       <AnimatedSection id="philosophy" className="min-h-screen flex items-center border-t border-zinc-900">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20">
-          <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4">What You Are Getting</p>
+          <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4">The Ultimate Force Multiplier</p>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white mb-8 leading-[0.9]">
-            I build software that builds software. It&apos;s a meta thing.
+            Most engineers build your MVP. I build the engine that generates your MVP, your v2, and your internal tooling — simultaneously.
           </h2>
-          <p className="text-lg md:text-xl text-zinc-400 leading-relaxed max-w-4xl">
-            I think in systems, not features. While others are debugging code, I&apos;m automating the 
-            debugging. While others are hiring developers, I&apos;m building digital ones. I don&apos;t just 
-            solve problems — I eliminate the conditions that create them.
-          </p>
+          <div className="space-y-6 text-lg md:text-xl text-zinc-400 leading-relaxed max-w-4xl">
+            <p>
+              I have moved beyond traditional development. By leveraging agentic workflows and LLM-driven architectures, I don&apos;t just solve the ticket in front of me; I build the automation that solves that <em>class</em> of tickets forever.
+            </p>
+            <ul className="space-y-3 pl-6">
+              <li><strong className="text-white">Speed:</strong> Prototyping measured in hours, not sprints.</li>
+              <li><strong className="text-white">Scale:</strong> Autonomous agents handling dev-ops, QA, and boilerplate generation.</li>
+              <li><strong className="text-white">Future-Proof:</strong> Systems built to evolve as AI models improve.</li>
+            </ul>
+          </div>
         </div>
       </AnimatedSection>
 
-      {/* 3. MACHINE LEARNING */}
+      {/* 3. DEEP STACK AUTHORITY */}
       <section id="ml" className="relative min-h-screen flex items-center">
         <div className="absolute inset-0">
           <Image
@@ -58,38 +63,22 @@ export default function Home() {
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent" />
         </div>
-        
+
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 py-20">
           <div className="max-w-2xl">
-            <p className="text-sm uppercase tracking-[0.3em] text-zinc-400 mb-4">Machine Learning Depth</p>
+            <p className="text-sm uppercase tracking-[0.3em] text-zinc-400 mb-4">From Bare Metal to Neural Networks</p>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white mb-8 leading-[0.9]">
-              10 years deep in ML when most are just getting started
+              Four decades. Assembly to AI. Every layer of the stack.
             </h2>
-            <p className="text-lg text-zinc-300 leading-relaxed">
-              I&apos;ve built and trained language, vision, speech, and action models — but more importantly, 
-              I build the harnesses that turn them into digital labor. Workers that are always on, never 
-              sick, and cost a fraction of human headcount. Production systems that actually shipped and 
-              replaced entire teams. This isn&apos;t tutorial knowledge — this is a decade of automating 
-              work that humans used to do.
-            </p>
+            <div className="space-y-4 text-lg text-zinc-300 leading-relaxed">
+              <p>
+                I grew up when you had to understand the metal — memory management, pointers, assembly. I watched every layer of abstraction get built: systems programming, desktop, mobile, web, DevOps, cloud, and now machine learning. I know what&apos;s underneath all of them.
+              </p>
+              <p>
+                <strong className="text-white">This is why my agents outperform:</strong> You cannot effectively automate what you do not deeply understand. Most developers use AI to write code. I use it to architect autonomous systems that eliminate entire classes of work — because I understand the machine from silicon to neural networks.
+              </p>
+            </div>
           </div>
-        </div>
-      </section>
-
-      {/* 4. PROGRAMMING JOURNEY */}
-      <section id="journey" className="min-h-screen flex items-center border-t border-zinc-900">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20">
-          <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4">True Full Stack</p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white mb-8 leading-[0.9]">
-            Gen X. The last generation that knows how all of it actually works.
-          </h2>
-          <p className="text-lg md:text-xl text-zinc-400 leading-relaxed max-w-4xl">
-            Systems. Desktop. Mobile. Web. DevOps. Cloud. Machine Learning. I have the whole stack at my 
-            fingertips. I grew up when you had to understand the metal — memory management, pointers, 
-            assembly. I watched every layer of abstraction get built and I know what&apos;s underneath all 
-            of them. From C to LISP to Python to TypeScript. That&apos;s not a resume — that&apos;s 
-            four decades of watching this industry reinvent itself while I stayed ahead of every wave.
-          </p>
         </div>
       </section>
 
@@ -107,15 +96,14 @@ export default function Home() {
         
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 py-20 flex justify-end">
           <div className="max-w-2xl text-right">
-            <p className="text-sm uppercase tracking-[0.3em] text-zinc-400 mb-4">100x Output</p>
+            <p className="text-sm uppercase tracking-[0.3em] text-zinc-400 mb-4">The Architect of Automation</p>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white mb-8 leading-[0.9]">
-              Not just a developer who writes code — a development system that ships products
+              I orchestrate swarms of autonomous agents across your entire engineering stack
             </h2>
             <p className="text-lg text-zinc-300 leading-relaxed">
-              You get multiple agents running simultaneously across multiple projects at multiple scopes. 
-              The taste-maker who knows how to codify software development at speeds your competitors can&apos;t 
-              match. What products like Base 44 promise but can&apos;t deliver. A machine whisperer who takes 
-              noise and shapes it into shippable products. This is how you 100x your engineering output.
+              Multiple agents running simultaneously across multiple projects at multiple scopes.
+              An architect who codifies software development at speeds your competitors can&apos;t
+              match. A machine whisperer who takes noise and shapes it into shippable products. This is how you 100x your engineering output.
             </p>
           </div>
         </div>
@@ -125,12 +113,12 @@ export default function Home() {
       <section id="contact" className="min-h-screen py-20 bg-zinc-950">
         <div className="max-w-4xl mx-auto px-6 lg:px-12">
           <div className="text-center mb-16">
-            <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4">Next Step</p>
+            <p className="text-sm uppercase tracking-[0.3em] text-zinc-500 mb-4">Deploy the System</p>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white mb-8 leading-[0.9]">
-              Book Your Consultation
+              Let&apos;s Build the Future, Faster
             </h2>
             <p className="text-lg md:text-xl text-zinc-400 leading-relaxed max-w-2xl mx-auto">
-              We discuss your goals in detail, and I unleash my agents on the problem space you are describing. At the end of the call you get a plan, and the initial work on any code or other artifacts we generated. You also get a copy of the video to rewatch later!
+              The software landscape has changed. You can hire a room full of typists, or you can hire an Architect of Automation. Book a consultation — we&apos;ll discuss your goals, and I&apos;ll unleash my agents on your problem space. You get a plan and initial code artifacts by the end of the call.
             </p>
           </div>
 
@@ -152,16 +140,29 @@ export default function Home() {
 
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 py-20">
           <div className="max-w-2xl">
-            <p className="text-sm uppercase tracking-[0.3em] text-zinc-400 mb-4">Two Ways to Engage</p>
+            <p className="text-sm uppercase tracking-[0.3em] text-zinc-400 mb-4">Two Ways to Augment Your Reality</p>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white mb-8 leading-[0.9]">
-              Solve your hardest problems — or train your team to work like this
+              Deploy me as an architect — or as the catalyst that transforms your team
             </h2>
-            <p className="text-lg text-zinc-300 leading-relaxed">
-              No two companies have the same needs. You can bring in the firepower to solve problems
-              directly — or train your existing team to implement this approach and supercharge their
-              output. Technical, non-technical, C-Suite — unleashing digital minds to supplement and
-              enhance your biologics is a win across the board. The question is how fast you want to move.
-            </p>
+            <div className="space-y-6 text-lg text-zinc-300 leading-relaxed">
+              <div>
+                <h3 className="text-xl font-bold text-white mb-2">1. The Architect (Deployment)</h3>
+                <p className="text-zinc-400 mb-2"><em>For Early Stage Founders & MVPs</em></p>
+                <p>
+                  I enter your ecosystem and act as a one-man army. I set up the &quot;God-mode&quot; tools, the agentic swarms, and the CI/CD pipelines. I build the product <em>and</em> the factory that builds the product.
+                </p>
+                <p className="text-white mt-2"><strong>Result:</strong> Massive velocity. You get a mature product stack with a fraction of the headcount.</p>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-bold text-white mb-2">2. The Catalyst (Enablement)</h3>
+                <p className="text-zinc-400 mb-2"><em>For Engineering Leaders & Scale-ups</em></p>
+                <p>
+                  I integrate with your existing team not just to contribute, but to upgrade their DNA. I teach your senior engineers my process: how to move from &quot;writing code&quot; to &quot;orchestrating code.&quot; I implement the tools that allow your current team to replicate my productivity.
+                </p>
+                <p className="text-white mt-2"><strong>Result:</strong> A permanently upskilled team and a culture of exponential output.</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
