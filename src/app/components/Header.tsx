@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 const NAV_LINKS = [
-  { label: "Philosophy", href: "#philosophy" },
-  { label: "ML", href: "#ml" },
-  { label: "Journey", href: "#journey" },
-  { label: "Systems", href: "#systems" },
-  { label: "Work", href: "#work" },
-  { label: "Contact", href: "#contact" },
+  { label: "Approach", href: "#philosophy" },
+  { label: "AI Depth", href: "#ml" },
+  { label: "Full Stack", href: "#journey" },
+  { label: "100x Output", href: "#systems" },
+  { label: "Book Call", href: "#contact" },
+  { label: "Engagement", href: "#work" },
 ];
 
 export function Header() {

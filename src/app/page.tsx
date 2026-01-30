@@ -121,35 +121,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6. WORK WITH ME */}
-      <section id="work" className="relative min-h-screen flex items-center">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/mikeoneal-portrait-office-v2.png"
-            alt="Consulting"
-            fill
-            className="object-cover object-top"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent" />
-        </div>
-        
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 py-20">
-          <div className="max-w-2xl">
-            <p className="text-sm uppercase tracking-[0.3em] text-zinc-400 mb-4">Two Ways to Engage</p>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white mb-8 leading-[0.9]">
-              Solve your hardest problems — or train your team to work like this
-            </h2>
-            <p className="text-lg text-zinc-300 leading-relaxed">
-              No two companies have the same needs. You can bring in the firepower to solve problems 
-              directly — or train your existing team to implement this approach and supercharge their 
-              output. Technical, non-technical, C-Suite — unleashing digital minds to supplement and 
-              enhance your biologics is a win across the board. The question is how fast you want to move.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* 7. CTA / BOOKING */}
+      {/* 6. CTA / BOOKING */}
       <section id="contact" className="min-h-screen py-20 bg-zinc-950">
         <div className="max-w-4xl mx-auto px-6 lg:px-12">
           <div className="text-center mb-16">
@@ -161,8 +133,36 @@ export default function Home() {
               We discuss your goals in detail, and I unleash my agents on the problem space you are describing. At the end of the call you get a plan, and the initial work on any code or other artifacts we generated. You also get a copy of the video to rewatch later!
             </p>
           </div>
-          
+
           <BookingFlow />
+        </div>
+      </section>
+
+      {/* 7. WORK WITH ME */}
+      <section id="work" className="relative min-h-screen flex items-center">
+        <div className="absolute inset-0">
+          <Image
+            src="/images/mikeoneal-professional-headshot.jpg"
+            alt="Consulting"
+            fill
+            className="object-cover object-top"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent" />
+        </div>
+
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 py-20">
+          <div className="max-w-2xl">
+            <p className="text-sm uppercase tracking-[0.3em] text-zinc-400 mb-4">Two Ways to Engage</p>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-white mb-8 leading-[0.9]">
+              Solve your hardest problems — or train your team to work like this
+            </h2>
+            <p className="text-lg text-zinc-300 leading-relaxed">
+              No two companies have the same needs. You can bring in the firepower to solve problems
+              directly — or train your existing team to implement this approach and supercharge their
+              output. Technical, non-technical, C-Suite — unleashing digital minds to supplement and
+              enhance your biologics is a win across the board. The question is how fast you want to move.
+            </p>
+          </div>
         </div>
       </section>
 
